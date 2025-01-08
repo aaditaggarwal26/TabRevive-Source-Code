@@ -142,3 +142,75 @@ chrome.tabs.onRemoved.addListener(async (tabId, removeInfo) => {
             
             if (activeTabsPerformance[tabId]) {
                 const sessionTime = Date.now() - activeTabsPerformance[tabId].startTime;
+                extensionStats.totalDeactivations++;
+                updateAverageActiveTime(sessionTime);
+                
+                delete activeTabsPerformance[tabId];
+            }
+        }
+        
+        updateBadge();
+        
+    } catch (error) {
+        extensionStats.errors++;
+    }
+});
+
+chrome.tabs.onActivated.addListener(async (activeInfo) => {
+    try {
+        if (activeTabsPerformance[activeInfo.tabId]) {
+            activeTabsPerformance[activeInfo.tabId].lastFocused = Date.now();
+            activeTabsPerformance[activeInfo.tabId].focusCount = 
+                (activeTabsPerformance[activeInfo.tabId].focusCount || 0) + 1;
+        }
+    } catch (error) {
+        extensionStats.errors++;
+    }
+});
+
+async function injectAlwaysActiveScript(tabId) {
+    try {
+        await chrome.scripting.executeScript({
+            target: { tabId: tabId, allFrames: true },
+            files: ['injected.js'],
+            world: 'MAIN'
+        });
+        
+    } catch (error) {
+        extensionStats.errors++;
+        throw error;
+    }
+}
+
+async function handleAlwaysActiveUpdate(tabId, isActive) {
+    try {
+        if (isActive) {
+            activeTabsPerformance[tabId] = {
+                startTime: Date.now(),
+                activationCount: (activeTabsPerformance[tabId]?.activationCount || 0) + 1,
+                lastActivity: Date.now(),
+                memoryUsage: 0,
+                errors: 0,
+                focusCount: 0,
+                urlChanges: 0
+            };
+            
+            extensionStats.totalActivations++;
+            
+            await injectAlwaysActiveScript(parseInt(tabId));
+            
+        } else {
+            if (activeTabsPerformance[tabId]) {
+                const sessionTime = Date.now() - activeTabsPerformance[tabId].startTime;
+                extensionStats.totalDeactivations++;
+                updateAverageActiveTime(sessionTime);
+                
+                delete activeTabsPerformance[tabId];
+            }
+        }
+        
+        updateBadge();
+        
+    } catch (error) {
+        extensionStats.errors++;
+    }
