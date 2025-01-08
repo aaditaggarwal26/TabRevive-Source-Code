@@ -214,3 +214,75 @@ async function handleAlwaysActiveUpdate(tabId, isActive) {
     } catch (error) {
         extensionStats.errors++;
     }
+}
+
+async function getAlwaysActiveStatus(tabId, sendResponse) {
+    try {
+        const result = await chrome.storage.local.get(['alwaysActiveTabs']);
+        const alwaysActiveTabs = result.alwaysActiveTabs || {};
+        
+        sendResponse({
+            isActive: alwaysActiveTabs.hasOwnProperty(tabId.toString()) && 
+                     !alwaysActiveTabs[tabId.toString()].closed
+        });
+    } catch (error) {
+        sendResponse({ error: error.message });
+    }
+}
+
+async function handleTabActiveCheck(tabId, sendResponse) {
+    try {
+        const result = await chrome.storage.local.get(['alwaysActiveTabs']);
+        const alwaysActiveTabs = result.alwaysActiveTabs || {};
+        
+        const shouldStayActive = alwaysActiveTabs.hasOwnProperty(tabId.toString()) && 
+                                !alwaysActiveTabs[tabId.toString()].closed;
+        
+        sendResponse({ shouldStayActive });
+        
+        if (shouldStayActive && !activeTabsPerformance[tabId]) {
+            activeTabsPerformance[tabId] = {
+                startTime: Date.now(),
+                activationCount: 1,
+                lastActivity: Date.now(),
+                memoryUsage: 0,
+                errors: 0,
+                focusCount: 0,
+                urlChanges: 0
+            };
+        }
+        
+    } catch (error) {
+        sendResponse({ error: error.message });
+    }
+}
+
+function handleTabActivated(tabId, tabStats) {
+    if (activeTabsPerformance[tabId]) {
+        activeTabsPerformance[tabId].lastActivity = Date.now();
+        if (tabStats) {
+            activeTabsPerformance[tabId].memoryUsage = tabStats.memoryUsage || 0;
+            activeTabsPerformance[tabId].errors = tabStats.errors || 0;
+        }
+    }
+}
+
+function handleTabDeactivated(tabId, tabStats) {
+    if (activeTabsPerformance[tabId]) {
+        const sessionTime = Date.now() - activeTabsPerformance[tabId].startTime;
+        updateAverageActiveTime(sessionTime);
+        delete activeTabsPerformance[tabId];
+    }
+}
+
+function handleTabUnloading(tabId, tabStats) {
+    if (activeTabsPerformance[tabId]) {
+        activeTabsPerformance[tabId].lastActivity = Date.now();
+        activeTabsPerformance[tabId].urlChanges = 
+            (activeTabsPerformance[tabId].urlChanges || 0) + 1;
+    }
+}
+
+function updateAverageActiveTime(sessionTime) {
+    const totalSessions = extensionStats.totalDeactivations;
+    if (totalSessions === 1) {
