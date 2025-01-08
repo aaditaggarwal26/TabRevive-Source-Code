@@ -286,3 +286,75 @@ function handleTabUnloading(tabId, tabStats) {
 function updateAverageActiveTime(sessionTime) {
     const totalSessions = extensionStats.totalDeactivations;
     if (totalSessions === 1) {
+        extensionStats.averageActiveTime = sessionTime;
+    } else {
+        extensionStats.averageActiveTime = 
+            (extensionStats.averageActiveTime * (totalSessions - 1) + sessionTime) / totalSessions;
+    }
+}
+
+async function updateBadge() {
+    try {
+        const result = await chrome.storage.local.get(['alwaysActiveTabs']);
+        const alwaysActiveTabs = result.alwaysActiveTabs || {};
+        const activeCount = Object.keys(alwaysActiveTabs).filter(
+            tabId => !alwaysActiveTabs[tabId].closed
+        ).length;
+        
+        if (activeCount > 0) {
+            chrome.action.setBadgeText({ text: activeCount.toString() });
+            chrome.action.setBadgeBackgroundColor({ color: '#00ff88' });
+            chrome.action.setTitle({ 
+                title: `TabRevive - Keep Tabs Alive - ${activeCount} tabs always active` 
+            });
+        } else {
+            chrome.action.setBadgeText({ text: '' });
+            chrome.action.setTitle({ title: 'TabRevive - Keep Tabs Alive - No active tabs' });
+        }
+    } catch (error) {
+        extensionStats.errors++;
+    }
+}
+
+function startBackgroundMonitoring() {
+    if (cleanupInterval || performanceInterval) return;
+
+    cleanupInterval = setInterval(cleanupOldRecords, 300000);
+    performanceInterval = setInterval(updatePerformanceStats, 30000);
+}
+
+async function cleanupOldRecords() {
+    try {
+        const result = await chrome.storage.local.get(['alwaysActiveTabs']);
+        const alwaysActiveTabs = result.alwaysActiveTabs || {};
+        const now = Date.now();
+        const oneHour = 60 * 60 * 1000;
+        const oneDay = 24 * oneHour;
+        
+        let cleanedCount = 0;
+        
+        for (const [tabId, tabInfo] of Object.entries(alwaysActiveTabs)) {
+            if (tabInfo.closed && tabInfo.closedAt && (now - tabInfo.closedAt) > oneDay) {
+                delete alwaysActiveTabs[tabId];
+                cleanedCount++;
+            }
+            else if (!tabInfo.closed && tabInfo.lastUpdated && 
+                    (now - tabInfo.lastUpdated) > oneHour) {
+                try {
+                    await chrome.tabs.get(parseInt(tabId));
+                } catch {
+                    tabInfo.closed = true;
+                    tabInfo.closedAt = now;
+                }
+            }
+        }
+        
+        if (cleanedCount > 0) {
+            await chrome.storage.local.set({ alwaysActiveTabs });
+        }
+        
+        updateBadge();
+        
+    } catch (error) {
+        extensionStats.errors++;
+    }
