@@ -358,3 +358,75 @@ async function cleanupOldRecords() {
     } catch (error) {
         extensionStats.errors++;
     }
+}
+
+async function updatePerformanceStats() {
+    try {
+        extensionStats.uptime = Date.now() - extensionStats.startTime;
+        extensionStats.activeTabCount = Object.keys(activeTabsPerformance).length;
+        
+        await chrome.storage.local.set({ extensionStats });
+        
+        for (const [tabId, perfData] of Object.entries(activeTabsPerformance)) {
+            try {
+                const response = await chrome.tabs.sendMessage(parseInt(tabId), {
+                    action: 'getPerformanceStats'
+                });
+                
+                if (response && response.stats) {
+                    perfData.memoryUsage = response.stats.memoryUsage || 0;
+                    perfData.errors = response.stats.errors || 0;
+                    perfData.lastActivity = Date.now();
+                }
+            } catch (error) {
+                perfData.errors = (perfData.errors || 0) + 1;
+            }
+        }
+        
+    } catch (error) {
+        extensionStats.errors++;
+    }
+}
+
+async function updateSettings(newSettings) {
+    try {
+        await chrome.storage.local.set({ extensionSettings: newSettings });
+    } catch (error) {
+        extensionStats.errors++;
+    }
+}
+
+async function clearAllData() {
+    try {
+        await chrome.storage.local.clear();
+        extensionStats = {
+            startTime: Date.now(),
+            totalActivations: 0,
+            totalDeactivations: 0,
+            averageActiveTime: 0,
+            memoryUsage: 0,
+            errors: 0
+        };
+        activeTabsPerformance = {};
+        
+        const optimalSettings = getOptimalSettings();
+        await chrome.storage.local.set({
+            alwaysActiveTabs: {},
+            extensionSettings: optimalSettings,
+            extensionStats: extensionStats
+        });
+        
+        updateBadge();
+    } catch (error) {
+        extensionStats.errors++;
+    }
+}
+
+function showWelcomeNotification() {
+    chrome.notifications.create({
+        type: 'basic',
+        iconUrl: 'icons/icon48.png',
+        title: 'TabRevive - Keep Tabs Alive Installed!',
+        message: 'Optimized settings applied. Click the extension icon to start.'
+    });
+}
