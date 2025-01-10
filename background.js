@@ -646,3 +646,68 @@ setInterval(async () => {
     try {
         const result = await chrome.storage.local.get(['alwaysActiveTabs', 'extensionSettings']);
         const alwaysActiveTabs = result.alwaysActiveTabs || {};
+        const settings = result.extensionSettings || getOptimalSettings();
+        
+        if (settings.autoRefresh) {
+            const activeTabIds = Object.keys(alwaysActiveTabs).filter(
+                tabId => !alwaysActiveTabs[tabId].closed
+            );
+            
+            for (const tabId of activeTabIds) {
+                const tabInfo = alwaysActiveTabs[tabId];
+                const timeSinceUpdate = Date.now() - (tabInfo.lastUpdated || tabInfo.timestamp);
+                
+                if (timeSinceUpdate > settings.autoRefreshInterval) {
+                    try {
+                        await chrome.tabs.reload(parseInt(tabId));
+                        tabInfo.lastUpdated = Date.now();
+                    } catch (error) {}
+                }
+            }
+            
+            await chrome.storage.local.set({ alwaysActiveTabs });
+        }
+    } catch (error) {
+        extensionStats.errors++;
+    }
+}, 60000);
+
+setInterval(() => {
+    try {
+        chrome.storage.local.set({ extensionStats });
+    } catch (error) {
+        extensionStats.errors++;
+    }
+}, 30000);
+
+if (chrome.runtime.onSuspend) {
+    chrome.runtime.onSuspend.addListener(() => {
+        try {
+            chrome.storage.local.set({ extensionStats });
+        } catch (error) {}
+    });
+}
+
+chrome.runtime.onStartup.addListener(() => {
+    extensionStats.startTime = Date.now();
+    updateBadge();
+    startBackgroundMonitoring();
+});
+
+if (chrome.management && chrome.management.onEnabled && chrome.management.onDisabled) {
+    chrome.management.onEnabled.addListener((info) => {
+        if (info.id === chrome.runtime.id) {
+            startBackgroundMonitoring();
+        }
+    });
+
+    chrome.management.onDisabled.addListener((info) => {
+        if (info.id === chrome.runtime.id) {
+            if (cleanupInterval) clearInterval(cleanupInterval);
+            if (performanceInterval) clearInterval(performanceInterval);
+        }
+    });
+}
+
+updateBadge();
+startBackgroundMonitoring();
