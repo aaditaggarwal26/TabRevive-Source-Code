@@ -430,3 +430,75 @@ function showWelcomeNotification() {
         message: 'Optimized settings applied. Click the extension icon to start.'
     });
 }
+
+function getOptimalSettings() {
+    return {
+        autoRefresh: false,
+        autoRefreshInterval: 300000,
+        enableNotifications: true,
+        enablePerformanceMonitoring: true,
+        maxActiveTabs: 25,
+        aggressiveMode: true,
+        enableSilentAudio: true,
+        enableHeartbeat: true,
+        heartbeatInterval: 500,
+        enableMemoryMonitoring: true,
+        memoryWarningThreshold: 750,
+        autoDisableOnLowBattery: false
+    };
+}
+
+chrome.commands.onCommand.addListener(async (command) => {
+    try {
+        if (command === 'toggle-current-tab') {
+            const [currentTab] = await chrome.tabs.query({ active: true, currentWindow: true });
+            if (currentTab) {
+                const result = await chrome.storage.local.get(['alwaysActiveTabs']);
+                const alwaysActiveTabs = result.alwaysActiveTabs || {};
+                
+                if (alwaysActiveTabs.hasOwnProperty(currentTab.id.toString()) && 
+                    !alwaysActiveTabs[currentTab.id.toString()].closed) {
+                    delete alwaysActiveTabs[currentTab.id.toString()];
+                    
+                    try {
+                        await chrome.tabs.sendMessage(currentTab.id, { action: 'disableAlwaysActive' });
+                    } catch (error) {}
+                    
+                    chrome.notifications.create({
+                        type: 'basic',
+                        iconUrl: 'icons/icon48.png',
+                        title: 'Always Active Disabled',
+                        message: `Disabled for: ${currentTab.title}`
+                    });
+                } else {
+                    alwaysActiveTabs[currentTab.id.toString()] = {
+                        title: currentTab.title,
+                        url: currentTab.url,
+                        favIconUrl: currentTab.favIconUrl,
+                        timestamp: Date.now(),
+                        closed: false
+                    };
+                    
+                    try {
+                        await chrome.tabs.sendMessage(currentTab.id, { action: 'enableAlwaysActive' });
+                    } catch (error) {}
+                    
+                    chrome.notifications.create({
+                        type: 'basic',
+                        iconUrl: 'icons/icon48.png',
+                        title: 'Always Active Enabled',
+                        message: `Enabled for: ${currentTab.title}`
+                    });
+                }
+                
+                await chrome.storage.local.set({ alwaysActiveTabs });
+                handleAlwaysActiveUpdate(currentTab.id.toString(), alwaysActiveTabs.hasOwnProperty(currentTab.id.toString()));
+            }
+        } else if (command === 'disable-all-tabs') {
+            const result = await chrome.storage.local.get(['alwaysActiveTabs']);
+            const alwaysActiveTabs = result.alwaysActiveTabs || {};
+            const activeTabIds = Object.keys(alwaysActiveTabs).filter(
+                tabId => !alwaysActiveTabs[tabId].closed
+            );
+            
+            if (activeTabIds.length === 0) {
