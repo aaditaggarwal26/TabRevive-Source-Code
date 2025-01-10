@@ -502,3 +502,75 @@ chrome.commands.onCommand.addListener(async (command) => {
             );
             
             if (activeTabIds.length === 0) {
+                chrome.notifications.create({
+                    type: 'basic',
+                    iconUrl: 'icons/icon48.png',
+                    title: 'No Active Tabs',
+                    message: 'No tabs are currently always active'
+                });
+                return;
+            }
+            
+            for (const tabId of activeTabIds) {
+                try {
+                    await chrome.tabs.sendMessage(parseInt(tabId), { action: 'disableAlwaysActive' });
+                } catch (error) {}
+                delete alwaysActiveTabs[tabId];
+            }
+            
+            await chrome.storage.local.set({ alwaysActiveTabs });
+            
+            chrome.notifications.create({
+                type: 'basic',
+                iconUrl: 'icons/icon48.png',
+                title: 'All Tabs Disabled',
+                message: `Disabled always active for ${activeTabIds.length} tabs`
+            });
+            
+            updateBadge();
+        }
+    } catch (error) {
+        extensionStats.errors++;
+    }
+});
+
+chrome.windows.onFocusChanged.addListener(async (windowId) => {
+    try {
+        if (windowId === chrome.windows.WINDOW_ID_NONE) return;
+        
+        const result = await chrome.storage.local.get(['alwaysActiveTabs']);
+        const alwaysActiveTabs = result.alwaysActiveTabs || {};
+        
+        for (const [tabId, tabInfo] of Object.entries(alwaysActiveTabs)) {
+            if (!tabInfo.closed) {
+                try {
+                    await chrome.tabs.sendMessage(parseInt(tabId), { action: 'ping' });
+                } catch (error) {}
+            }
+        }
+    } catch (error) {
+        extensionStats.errors++;
+    }
+});
+
+if (chrome.system && chrome.system.cpu && chrome.system.cpu.onUpdated) {
+    chrome.system.cpu.onUpdated.addListener((cpuInfo) => {
+        try {
+            if (cpuInfo.usage > 90) {
+                chrome.storage.local.get(['extensionSettings']).then(result => {
+                    const settings = result.extensionSettings || getOptimalSettings();
+                    if (settings.enablePerformanceMonitoring) {
+                        chrome.notifications.create({
+                            type: 'basic',
+                            iconUrl: 'icons/icon48.png',
+                            title: 'High CPU Usage Detected',
+                            message: 'Consider reducing active tabs for better performance'
+                        });
+                    }
+                });
+            }
+        } catch (error) {
+            extensionStats.errors++;
+        }
+    });
+}
