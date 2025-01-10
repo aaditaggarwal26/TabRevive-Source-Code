@@ -574,3 +574,75 @@ if (chrome.system && chrome.system.cpu && chrome.system.cpu.onUpdated) {
         }
     });
 }
+
+if (chrome.system && chrome.system.memory && chrome.system.memory.onUpdated) {
+    chrome.system.memory.onUpdated.addListener((memoryInfo) => {
+        try {
+            const usagePercent = (memoryInfo.usedCapacity / memoryInfo.capacity) * 100;
+            if (usagePercent > 95) {
+                chrome.storage.local.get(['extensionSettings']).then(result => {
+                    const settings = result.extensionSettings || getOptimalSettings();
+                    if (settings.enableMemoryMonitoring) {
+                        chrome.notifications.create({
+                            type: 'basic',
+                            iconUrl: 'icons/icon48.png',
+                            title: 'Critical Memory Usage',
+                            message: 'System memory is critically low. Consider closing some active tabs.'
+                        });
+                    }
+                });
+            }
+        } catch (error) {
+            extensionStats.errors++;
+        }
+    });
+}
+
+if (chrome.idle && chrome.idle.onStateChanged) {
+    chrome.idle.onStateChanged.addListener((state) => {
+        try {
+            chrome.storage.local.get(['extensionSettings', 'alwaysActiveTabs']).then(result => {
+                const settings = result.extensionSettings || getOptimalSettings();
+                const alwaysActiveTabs = result.alwaysActiveTabs || {};
+                
+                if (state === 'idle' && settings.autoDisableOnLowBattery) {
+                    if (navigator.getBattery) {
+                        navigator.getBattery().then(battery => {
+                            if (battery.level < 0.2 && !battery.charging) {
+                                const activeTabIds = Object.keys(alwaysActiveTabs).filter(
+                                    tabId => !alwaysActiveTabs[tabId].closed
+                                );
+                                
+                                if (activeTabIds.length > 0) {
+                                    chrome.notifications.create({
+                                        type: 'basic',
+                                        iconUrl: 'icons/icon48.png',
+                                        title: 'Battery Saver Mode',
+                                        message: 'Disabling active tabs to preserve battery'
+                                    });
+                                    
+                                    activeTabIds.forEach(async (tabId) => {
+                                        try {
+                                            await chrome.tabs.sendMessage(parseInt(tabId), { action: 'disableAlwaysActive' });
+                                            delete alwaysActiveTabs[tabId];
+                                        } catch (error) {}
+                                    });
+                                    
+                                    chrome.storage.local.set({ alwaysActiveTabs });
+                                    updateBadge();
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        } catch (error) {
+            extensionStats.errors++;
+        }
+    });
+}
+
+setInterval(async () => {
+    try {
+        const result = await chrome.storage.local.get(['alwaysActiveTabs', 'extensionSettings']);
+        const alwaysActiveTabs = result.alwaysActiveTabs || {};
