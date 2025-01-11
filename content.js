@@ -65,3 +65,70 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     }
     return true;
 });
+
+function enableAlwaysActive() {
+    if (isAlwaysActive) return;
+    isAlwaysActive = true;
+    tabStats.activationTime = Date.now();
+    startHeartbeat();
+    postMainWorldMessage('ALWAYS_ACTIVE_ENABLE');
+    setTimeout(() => postMainWorldMessage('ALWAYS_ACTIVE_ENABLE'), 50);
+    setTimeout(() => postMainWorldMessage('ALWAYS_ACTIVE_ENABLE'), 250);
+    updateActivity();
+    try {
+        chrome.runtime.sendMessage({ action: 'tabActivated', tabStats });
+    } catch (error) {}
+}
+
+function disableAlwaysActive() {
+    if (!isAlwaysActive) return;
+    isAlwaysActive = false;
+    tabStats.activationTime = null;
+    stopHeartbeat();
+    postMainWorldMessage('ALWAYS_ACTIVE_DISABLE');
+    try {
+        chrome.runtime.sendMessage({ action: 'tabDeactivated', tabStats });
+    } catch (error) {}
+}
+
+function postMainWorldMessage(type) {
+    window.postMessage({ type, source: 'always-active-extension' }, '*');
+}
+
+function startHeartbeat() {
+    if (heartbeatInterval) return;
+    heartbeatInterval = setInterval(() => {
+        if (!isAlwaysActive) return;
+        try {
+            updateActivity();
+            document.documentElement.scrollTop = document.documentElement.scrollTop;
+            requestAnimationFrame(() => {});
+            updatePerformanceStats();
+        } catch (error) {
+            tabStats.errors++;
+        }
+    }, 1000);
+}
+
+function stopHeartbeat() {
+    if (heartbeatInterval) {
+        clearInterval(heartbeatInterval);
+        heartbeatInterval = null;
+    }
+}
+
+function updateActivity() {
+    lastActivityTime = Date.now();
+}
+
+function startPerformanceMonitoring() {
+    if (performanceMonitor) return;
+    performanceMonitor = setInterval(() => {
+        try {
+            updatePerformanceStats();
+        } catch (error) {
+            tabStats.errors++;
+        }
+    }, 10000);
+}
+
