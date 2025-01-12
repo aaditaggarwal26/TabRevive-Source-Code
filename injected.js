@@ -186,3 +186,97 @@
 
     function unwrapListener(target, type, listener) {
         if (!isValidWeakKey(target)) return listener;
+        const targetMap = state.listenerMap.get(target);
+        const typeMap = targetMap && targetMap.get(type);
+        return typeMap && typeMap.get(listener) || listener;
+    }
+
+    function installEventPatches() {
+        EventTarget.prototype.addEventListener = function(type, listener, options) {
+            const eventType = String(type);
+            const wrapped = wrapListener(this, eventType, listener);
+            return state.originals.eventTargetAdd.call(this, eventType, wrapped, options);
+        };
+
+        EventTarget.prototype.removeEventListener = function(type, listener, options) {
+            const eventType = String(type);
+            const wrapped = unwrapListener(this, eventType, listener);
+            return state.originals.eventTargetRemove.call(this, eventType, wrapped, options);
+        };
+
+        const blocker = function(event) {
+            if (!state.enabled || !SUPPRESSED_EVENTS.has(event.type)) return;
+            event.stopImmediatePropagation();
+        };
+
+        const pointerTracker = function(event) {
+            if (POINTER_EVENTS.has(event.type)) {
+                state.lastPointerEvent = event;
+            }
+        };
+
+        SUPPRESSED_EVENTS.forEach((eventType) => {
+            state.originals.eventTargetAdd.call(window, eventType, blocker, true);
+            state.originals.eventTargetAdd.call(document, eventType, blocker, true);
+        });
+
+        POINTER_EVENTS.forEach((eventType) => {
+            state.originals.eventTargetAdd.call(window, eventType, pointerTracker, true);
+            state.originals.eventTargetAdd.call(document, eventType, pointerTracker, true);
+        });
+
+        ACTIVE_EVENTS.forEach((eventType) => {
+            state.originals.eventTargetAdd.call(window, eventType, function() {}, true);
+            state.originals.eventTargetAdd.call(document, eventType, function() {}, true);
+        });
+    }
+
+    function installEventHandlerProperty(target, property, eventType) {
+        let currentHandler = null;
+        let currentWrapped = null;
+
+        safeDefine(target, property, {
+            get() {
+                return currentHandler;
+            },
+            set(handler) {
+                if (currentWrapped) {
+                    state.originals.eventTargetRemove.call(target, eventType, currentWrapped, false);
+                    currentWrapped = null;
+                }
+
+                currentHandler = typeof handler === 'function' || (handler && typeof handler.handleEvent === 'function')
+                    ? handler
+                    : null;
+
+                if (!currentHandler) return;
+
+                currentWrapped = function(event) {
+                    if (shouldSuppressEvent(eventType, event)) return undefined;
+                    return callListener(currentHandler, target, event);
+                };
+
+                state.originals.eventTargetAdd.call(target, eventType, currentWrapped, false);
+            }
+        });
+    }
+
+    function installVisibilityPatches() {
+        safeDefine(Document.prototype, 'hidden', {
+            get() {
+                return state.enabled ? false : getOriginalDescriptorValue(state.originals.hidden, this, false);
+            }
+        });
+
+        safeDefine(Document.prototype, 'webkitHidden', {
+            get() {
+                return state.enabled ? false : getOriginalDescriptorValue(state.originals.webkitHidden, this, false);
+            }
+        });
+
+        safeDefine(Document.prototype, 'visibilityState', {
+            get() {
+                return state.enabled ? 'visible' : getOriginalDescriptorValue(state.originals.visibilityState, this, 'visible');
+            }
+        });
+
