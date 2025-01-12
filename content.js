@@ -132,3 +132,70 @@ function startPerformanceMonitoring() {
     }, 10000);
 }
 
+function updatePerformanceStats() {
+    try {
+        if (performance.memory) {
+            tabStats.memoryUsage = Math.round(performance.memory.usedJSHeapSize / 1024 / 1024);
+        }
+        const navigation = performance.getEntriesByType('navigation')[0];
+        if (navigation) {
+            tabStats.loadTime = Math.round(navigation.loadEventEnd - navigation.fetchStart);
+        }
+    } catch (error) {
+        tabStats.errors++;
+    }
+}
+
+function getPerformanceMetrics() {
+    try {
+        const metrics = {
+            memoryUsage: tabStats.memoryUsage,
+            uptime: Date.now() - tabStats.startTime,
+            activeTime: tabStats.activationTime ? Date.now() - tabStats.activationTime : 0,
+            pageLoads: tabStats.pageLoads,
+            errors: tabStats.errors,
+            lastActivity: lastActivityTime
+        };
+        if (performance.memory) {
+            metrics.heapSize = Math.round(performance.memory.totalJSHeapSize / 1024 / 1024);
+            metrics.heapLimit = Math.round(performance.memory.jsHeapSizeLimit / 1024 / 1024);
+        }
+        return metrics;
+    } catch (error) {
+        return { error: error.message };
+    }
+}
+
+document.addEventListener('visibilitychange', function() {
+    if (isAlwaysActive) {
+        postMainWorldMessage('ALWAYS_ACTIVE_ENABLE');
+        updateActivity();
+    }
+});
+
+window.addEventListener('blur', function() {
+    if (isAlwaysActive) {
+        postMainWorldMessage('ALWAYS_ACTIVE_ENABLE');
+        updateActivity();
+    }
+});
+
+window.addEventListener('focus', function() {
+    updateActivity();
+});
+
+window.addEventListener('beforeunload', function() {
+    if (isAlwaysActive) {
+        try {
+            chrome.runtime.sendMessage({ action: 'tabUnloading', tabStats });
+        } catch (error) {}
+    }
+});
+
+window.addEventListener('error', function() {
+    if (isAlwaysActive) tabStats.errors++;
+});
+
+window.addEventListener('unhandledrejection', function() {
+    if (isAlwaysActive) tabStats.errors++;
+});
