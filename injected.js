@@ -280,3 +280,97 @@
             }
         });
 
+        safeDefine(Document.prototype, 'webkitVisibilityState', {
+            get() {
+                return state.enabled ? 'visible' : getOriginalDescriptorValue(state.originals.webkitVisibilityState, this, 'visible');
+            }
+        });
+
+        safeDefine(Document.prototype, 'prerendering', {
+            get() {
+                return state.enabled ? false : getOriginalDescriptorValue(state.originals.prerendering, this, false);
+            }
+        });
+
+        safeDefine(Document.prototype, 'wasDiscarded', {
+            get() {
+                return state.enabled ? false : getOriginalDescriptorValue(state.originals.wasDiscarded, this, false);
+            }
+        });
+
+        Document.prototype.hasFocus = function() {
+            return state.enabled ? true : state.originals.hasFocus.call(this);
+        };
+
+        window.focus = function(...args) {
+            if (state.enabled) {
+                dispatchActiveSignals();
+                return undefined;
+            }
+
+            return state.originals.windowFocus && state.originals.windowFocus.apply(this, args);
+        };
+
+        window.blur = function(...args) {
+            if (state.enabled) {
+                return undefined;
+            }
+
+            return state.originals.windowBlur && state.originals.windowBlur.apply(this, args);
+        };
+
+        installEventHandlerProperty(window, 'onblur', 'blur');
+        installEventHandlerProperty(window, 'onfocusout', 'focusout');
+        installEventHandlerProperty(window, 'onmouseleave', 'mouseleave');
+        installEventHandlerProperty(window, 'onmouseout', 'mouseout');
+        installEventHandlerProperty(window, 'onpointerleave', 'pointerleave');
+        installEventHandlerProperty(window, 'onpointerout', 'pointerout');
+        installEventHandlerProperty(window, 'onpagehide', 'pagehide');
+        installEventHandlerProperty(window, 'onfreeze', 'freeze');
+        installEventHandlerProperty(window, 'onresume', 'resume');
+        installEventHandlerProperty(document, 'onvisibilitychange', 'visibilitychange');
+        installEventHandlerProperty(document, 'onwebkitvisibilitychange', 'webkitvisibilitychange');
+        installEventHandlerProperty(document, 'onmouseleave', 'mouseleave');
+        installEventHandlerProperty(document, 'onmouseout', 'mouseout');
+        installEventHandlerProperty(document, 'onpointerleave', 'pointerleave');
+        installEventHandlerProperty(document, 'onpointerout', 'pointerout');
+        installEventHandlerProperty(document, 'onlostpointercapture', 'lostpointercapture');
+        installEventHandlerProperty(document, 'onfreeze', 'freeze');
+        installEventHandlerProperty(document, 'onresume', 'resume');
+    }
+
+    function getRealActiveElement(documentObject) {
+        return getOriginalDescriptorValue(state.originals.activeElement, documentObject, documentObject.body || documentObject.documentElement);
+    }
+
+    function getSyntheticActiveElement(documentObject) {
+        const realActiveElement = getRealActiveElement(documentObject);
+        if (realActiveElement && realActiveElement !== documentObject.body) {
+            state.syntheticActiveElement = realActiveElement;
+            return realActiveElement;
+        }
+
+        if (
+            state.syntheticActiveElement &&
+            state.syntheticActiveElement.ownerDocument === documentObject &&
+            documentObject.contains(state.syntheticActiveElement)
+        ) {
+            return state.syntheticActiveElement;
+        }
+
+        return documentObject.body || documentObject.documentElement || realActiveElement;
+    }
+
+    function isFocusSelector(selector) {
+        return typeof selector === 'string' && /:(focus|focus-visible|focus-within)\b/.test(selector);
+    }
+
+    function isExactFocusSelector(selector) {
+        return typeof selector === 'string' && /^:(focus|focus-visible|focus-within)$/.test(selector.trim());
+    }
+
+    function installFocusPatches() {
+        safeDefine(Document.prototype, 'activeElement', {
+            get() {
+                return state.enabled ? getSyntheticActiveElement(this) : getRealActiveElement(this);
+            }
