@@ -374,3 +374,97 @@
             get() {
                 return state.enabled ? getSyntheticActiveElement(this) : getRealActiveElement(this);
             }
+        });
+
+        if (state.originals.fullscreenElement) {
+            safeDefine(Document.prototype, 'fullscreenElement', {
+                get() {
+                    const realFullscreenElement = getOriginalDescriptorValue(state.originals.fullscreenElement, this, null);
+                    if (!state.enabled) {
+                        state.syntheticFullscreenElement = realFullscreenElement;
+                        return realFullscreenElement;
+                    }
+
+                    return realFullscreenElement || (
+                        state.syntheticFullscreenElement &&
+                        state.syntheticFullscreenElement.ownerDocument === this &&
+                        this.contains(state.syntheticFullscreenElement)
+                            ? state.syntheticFullscreenElement
+                            : null
+                    );
+                }
+            });
+        }
+
+        if (state.originals.pointerLockElement) {
+            safeDefine(Document.prototype, 'pointerLockElement', {
+                get() {
+                    const realPointerLockElement = getOriginalDescriptorValue(state.originals.pointerLockElement, this, null);
+                    if (!state.enabled) {
+                        state.syntheticPointerLockElement = realPointerLockElement;
+                        return realPointerLockElement;
+                    }
+
+                    return realPointerLockElement || (
+                        state.syntheticPointerLockElement &&
+                        state.syntheticPointerLockElement.ownerDocument === this &&
+                        this.contains(state.syntheticPointerLockElement)
+                            ? state.syntheticPointerLockElement
+                            : null
+                    );
+                }
+            });
+        }
+
+        if (state.originals.elementFocus) {
+            Element.prototype.focus = function(...args) {
+                state.syntheticActiveElement = this;
+                return state.originals.elementFocus.apply(this, args);
+            };
+        }
+
+        if (state.originals.elementBlur) {
+            Element.prototype.blur = function(...args) {
+                if (state.enabled && this === getSyntheticActiveElement(this.ownerDocument || document)) {
+                    return undefined;
+                }
+
+                return state.originals.elementBlur.apply(this, args);
+            };
+        }
+
+        if (state.originals.elementRequestFullscreen) {
+            Element.prototype.requestFullscreen = function(...args) {
+                state.syntheticFullscreenElement = this;
+                return state.originals.elementRequestFullscreen.apply(this, args);
+            };
+        }
+
+        if (state.originals.documentExitFullscreen) {
+            Document.prototype.exitFullscreen = function(...args) {
+                if (state.enabled) {
+                    return Promise.resolve();
+                }
+
+                state.syntheticFullscreenElement = null;
+                return state.originals.documentExitFullscreen.apply(this, args);
+            };
+        }
+
+        if (state.originals.elementRequestPointerLock) {
+            Element.prototype.requestPointerLock = function(...args) {
+                state.syntheticPointerLockElement = this;
+                return state.originals.elementRequestPointerLock.apply(this, args);
+            };
+        }
+
+        if (state.originals.documentExitPointerLock) {
+            Document.prototype.exitPointerLock = function(...args) {
+                if (state.enabled) {
+                    return undefined;
+                }
+
+                state.syntheticPointerLockElement = null;
+                return state.originals.documentExitPointerLock.apply(this, args);
+            };
+        }
