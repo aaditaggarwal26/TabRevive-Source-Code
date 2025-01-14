@@ -750,3 +750,97 @@
 
     function resumeAllMedia() {
         try {
+            const mediaElements = document.querySelectorAll('video, audio');
+            mediaElements.forEach(function(media) {
+                if (media.paused && media.readyState >= 2) {
+                    media.play().catch(function() {});
+                }
+            });
+        } catch {}
+    }
+
+    function startKeepAlive() {
+        if (state.keepAliveInterval) return;
+
+        state.keepAliveInterval = state.originals.setInterval.call(window, () => {
+            if (!state.enabled) return;
+
+            if (state.audioContext && state.audioContext.state === 'suspended') {
+                state.audioContext.resume().catch(() => {});
+            }
+
+            if (!state.wakeLock) requestWakeLock();
+
+            state.lastStatus = {
+                timestamp: state.originals.dateNow(),
+                hidden: document.hidden,
+                visibilityState: document.visibilityState,
+                hasFocus: document.hasFocus()
+            };
+        }, 1000);
+    }
+
+    function stopKeepAlive() {
+        if (state.keepAliveInterval) {
+            state.originals.clearInterval.call(window, state.keepAliveInterval);
+            state.keepAliveInterval = null;
+        }
+
+        if (state.audioSource) {
+            try {
+                state.audioSource.stop();
+            } catch {}
+            state.audioSource = null;
+        }
+
+        if (state.audioContext) {
+            try {
+                state.audioContext.close();
+            } catch {}
+            state.audioContext = null;
+        }
+
+        if (state.wakeLock) {
+            state.wakeLock.release().catch(() => {});
+            state.wakeLock = null;
+        }
+    }
+
+    function enable() {
+        if (state.enabled && state.confirmed) {
+            dispatchActiveSignals();
+            resumeAllMedia();
+            return;
+        }
+
+        state.enabled = true;
+        state.confirmed = true;
+        state.lastRealNow = state.originals.performanceNow ? state.originals.performanceNow() : 0;
+        state.syntheticNow = state.lastRealNow;
+        state.lastRealDate = state.originals.dateNow();
+        state.syntheticDate = state.lastRealDate;
+
+        startKeepAlive();
+        createSilentAudio();
+        requestWakeLock();
+        dispatchActiveSignals();
+        resumeAllMedia();
+
+        window.postMessage({
+            type: 'ALWAYS_ACTIVE_STATUS',
+            source: 'always-active-injected',
+            enabled: true
+        }, '*');
+    }
+
+    function disable() {
+        if (!state.enabled) return;
+
+        state.enabled = false;
+        state.confirmed = false;
+        stopKeepAlive();
+
+        window.postMessage({
+            type: 'ALWAYS_ACTIVE_STATUS',
+            source: 'always-active-injected',
+            enabled: false
