@@ -562,3 +562,97 @@
         }
 
         const delta = Math.max(0, realNow - state.lastRealDate);
+        state.syntheticDate += Math.min(delta, 50);
+        state.lastRealDate = realNow;
+        return Math.round(state.syntheticDate);
+    }
+
+    function installTimingPatches() {
+        if (window.performance && state.originals.performanceNow) {
+            safeDefine(window.performance, 'now', {
+                value: function() {
+                    return nextSyntheticPerformanceNow();
+                }
+            });
+
+            if (window.Performance && window.Performance.prototype) {
+                safeDefine(window.Performance.prototype, 'now', {
+                    value: function() {
+                        return nextSyntheticPerformanceNow();
+                    }
+                });
+            }
+        }
+
+        const NativeDate = state.originals.Date;
+
+        function TabReviveDate(...args) {
+            if (this instanceof TabReviveDate) {
+                if (args.length === 0) return new NativeDate(nextSyntheticDateNow());
+                return new NativeDate(...args);
+            }
+
+            if (args.length === 0) return new NativeDate(nextSyntheticDateNow()).toString();
+            return NativeDate(...args);
+        }
+
+        Object.getOwnPropertyNames(NativeDate).forEach((property) => {
+            if (property === 'now' || property === 'prototype' || property === 'length' || property === 'name') return;
+
+            try {
+                safeDefine(TabReviveDate, property, Object.getOwnPropertyDescriptor(NativeDate, property));
+            } catch {}
+        });
+
+        safeDefine(TabReviveDate, 'now', {
+            value: function() {
+                return nextSyntheticDateNow();
+            }
+        });
+
+        TabReviveDate.prototype = NativeDate.prototype;
+        Object.setPrototypeOf(TabReviveDate, NativeDate);
+        window.Date = TabReviveDate;
+
+        window.requestAnimationFrame = function(callback) {
+            if (!state.enabled || !state.originals.requestAnimationFrame) {
+                return state.originals.requestAnimationFrame.call(window, callback);
+            }
+
+            return state.originals.requestAnimationFrame.call(window, function(timestamp) {
+                callback(typeof timestamp === 'number' ? Math.min(timestamp, nextSyntheticPerformanceNow()) : nextSyntheticPerformanceNow());
+            });
+        };
+
+        if (state.originals.requestIdleCallback) {
+            window.requestIdleCallback = function(callback, options) {
+                if (!state.enabled) {
+                    return state.originals.requestIdleCallback.call(window, callback, options);
+                }
+
+                return state.originals.setTimeout.call(window, function() {
+                    callback({
+                        didTimeout: false,
+                        timeRemaining: function() {
+                            return 50;
+                        }
+                    });
+                }, Math.min(options && options.timeout || 16, 50));
+            };
+        }
+
+        if (state.originals.cancelIdleCallback) {
+            window.cancelIdleCallback = function(handle) {
+                if (state.enabled) {
+                    return state.originals.clearTimeout.call(window, handle);
+                }
+
+                return state.originals.cancelIdleCallback.call(window, handle);
+            };
+        }
+    }
+
+    function installAudioPatches() {
+        function wrapAudioContext(NativeAudioContext) {
+            if (!NativeAudioContext) return NativeAudioContext;
+
