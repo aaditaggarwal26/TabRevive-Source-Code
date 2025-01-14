@@ -468,3 +468,97 @@
                 return state.originals.documentExitPointerLock.apply(this, args);
             };
         }
+
+        if (state.originals.elementMatches) {
+            Element.prototype.matches = function(selector) {
+                if (state.enabled && isFocusSelector(selector)) {
+                    const activeElement = getSyntheticActiveElement(this.ownerDocument || document);
+                    if (selector.includes(':focus-within') && (this === activeElement || this.contains(activeElement))) {
+                        return true;
+                    }
+
+                    if ((selector.includes(':focus') || selector.includes(':focus-visible')) && this === activeElement) {
+                        return true;
+                    }
+                }
+
+                return state.originals.elementMatches.call(this, selector);
+            };
+        }
+
+        if (state.originals.elementClosest) {
+            Element.prototype.closest = function(selector) {
+                if (state.enabled && isExactFocusSelector(selector)) {
+                    const activeElement = getSyntheticActiveElement(this.ownerDocument || document);
+                    if (selector.includes('focus-within')) {
+                        return this.contains(activeElement) ? this : null;
+                    }
+
+                    return this === activeElement ? this : null;
+                }
+
+                return state.originals.elementClosest.call(this, selector);
+            };
+        }
+
+        Document.prototype.querySelector = function(selector) {
+            if (state.enabled && isExactFocusSelector(selector)) {
+                return getSyntheticActiveElement(this);
+            }
+
+            return state.originals.documentQuerySelector.call(this, selector);
+        };
+
+        if (state.originals.elementQuerySelector) {
+            Element.prototype.querySelector = function(selector) {
+                if (state.enabled && isExactFocusSelector(selector)) {
+                    const activeElement = getSyntheticActiveElement(this.ownerDocument || document);
+                    return this.contains(activeElement) ? activeElement : null;
+                }
+
+                return state.originals.elementQuerySelector.call(this, selector);
+            };
+        }
+    }
+
+    function installUserActivationPatch() {
+        if (!window.Navigator || !state.originals.userActivation) return;
+
+        safeDefine(Navigator.prototype, 'userActivation', {
+            get() {
+                const nativeActivation = getOriginalDescriptorValue(state.originals.userActivation, this, null);
+                if (!state.enabled) return nativeActivation;
+
+                return {
+                    hasBeenActive: true,
+                    isActive: nativeActivation && nativeActivation.isActive || false
+                };
+            }
+        });
+    }
+
+    function nextSyntheticPerformanceNow() {
+        if (!state.originals.performanceNow) return 0;
+
+        const realNow = state.originals.performanceNow();
+        if (!state.enabled) {
+            state.lastRealNow = realNow;
+            state.syntheticNow = realNow;
+            return realNow;
+        }
+
+        const delta = Math.max(0, realNow - state.lastRealNow);
+        state.syntheticNow += Math.min(delta, 50);
+        state.lastRealNow = realNow;
+        return state.syntheticNow;
+    }
+
+    function nextSyntheticDateNow() {
+        const realNow = state.originals.dateNow();
+        if (!state.enabled) {
+            state.lastRealDate = realNow;
+            state.syntheticDate = realNow;
+            return realNow;
+        }
+
+        const delta = Math.max(0, realNow - state.lastRealDate);
