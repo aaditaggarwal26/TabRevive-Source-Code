@@ -656,3 +656,97 @@
         function wrapAudioContext(NativeAudioContext) {
             if (!NativeAudioContext) return NativeAudioContext;
 
+            function TabReviveAudioContext(...args) {
+                const context = new NativeAudioContext(...args);
+                const nativeSuspend = context.suspend && context.suspend.bind(context);
+
+                if (nativeSuspend) {
+                    context.suspend = function() {
+                        if (state.enabled) return Promise.resolve();
+                        return nativeSuspend();
+                    };
+                }
+
+                return context;
+            }
+
+            TabReviveAudioContext.prototype = NativeAudioContext.prototype;
+            Object.setPrototypeOf(TabReviveAudioContext, NativeAudioContext);
+            return TabReviveAudioContext;
+        }
+
+        window.AudioContext = wrapAudioContext(state.originals.AudioContext);
+        window.webkitAudioContext = wrapAudioContext(state.originals.webkitAudioContext);
+    }
+
+    function installIntersectionObserverPatch() {
+        const NativeIntersectionObserver = state.originals.IntersectionObserver;
+        if (!NativeIntersectionObserver) return;
+
+        window.IntersectionObserver = function(callback, options) {
+            const wrappedCallback = function(entries, observer) {
+                if (state.enabled) {
+                    entries.forEach((entry) => {
+                        safeDefine(entry, 'intersectionRatio', { value: 1 });
+                        safeDefine(entry, 'isIntersecting', { value: true });
+                        safeDefine(entry, 'isVisible', { value: true });
+                    });
+                }
+
+                return callback(entries, observer);
+            };
+
+            return new NativeIntersectionObserver(wrappedCallback, options);
+        };
+
+        window.IntersectionObserver.prototype = NativeIntersectionObserver.prototype;
+        Object.setPrototypeOf(window.IntersectionObserver, NativeIntersectionObserver);
+    }
+
+    function createSilentAudio() {
+        try {
+            if (state.audioContext) return;
+
+            const AudioContextConstructor = state.originals.AudioContext || state.originals.webkitAudioContext;
+            if (!AudioContextConstructor) return;
+
+            const context = new AudioContextConstructor();
+            const buffer = context.createBuffer(1, 1, 22050);
+            const source = context.createBufferSource();
+            const gainNode = context.createGain();
+
+            gainNode.gain.value = 0.0001;
+            source.buffer = buffer;
+            source.loop = true;
+            source.connect(gainNode);
+            gainNode.connect(context.destination);
+            source.start(0);
+
+            state.audioContext = context;
+            state.audioSource = source;
+        } catch {}
+    }
+
+    function requestWakeLock() {
+        try {
+            if (!navigator.wakeLock || state.wakeLock) return;
+
+            navigator.wakeLock.request('screen').then((lock) => {
+                state.wakeLock = lock;
+                lock.addEventListener('release', () => {
+                    state.wakeLock = null;
+                    if (state.enabled) requestWakeLock();
+                });
+            }).catch(() => {});
+        } catch {}
+    }
+
+    function dispatchActiveSignals() {
+        try {
+            window.dispatchEvent(new Event('focus'));
+            document.dispatchEvent(new Event('focusin', { bubbles: true }));
+        } catch {}
+    }
+
+    function resumeAllMedia() {
+        try {
