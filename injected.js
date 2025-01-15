@@ -844,3 +844,91 @@
             type: 'ALWAYS_ACTIVE_STATUS',
             source: 'always-active-injected',
             enabled: false
+        }, '*');
+    }
+
+    function installMediaPatches() {
+        let lastUserInteractionTime = 0;
+
+        state.originals.eventTargetAdd.call(document, 'pointerdown', function() {
+            lastUserInteractionTime = state.originals.dateNow();
+        }, true);
+        state.originals.eventTargetAdd.call(document, 'keydown', function() {
+            lastUserInteractionTime = state.originals.dateNow();
+        }, true);
+
+        function isUserInitiated() {
+            return (state.originals.dateNow() - lastUserInteractionTime) < 500;
+        }
+
+        if (window.HTMLMediaElement) {
+            const nativePause = HTMLMediaElement.prototype.pause;
+            state.originals.mediaPause = nativePause;
+
+            HTMLMediaElement.prototype.pause = function() {
+                if (state.enabled && !isUserInitiated()) {
+                    return;
+                }
+                return nativePause.call(this);
+            };
+
+            state.originals.eventTargetAdd.call(document, 'pause', function(event) {
+                if (!state.enabled || isUserInitiated()) return;
+                const media = event.target;
+                if (!(media instanceof HTMLMediaElement)) return;
+                state.originals.setTimeout.call(window, function() {
+                    if (state.enabled && media.paused && !isUserInitiated()) {
+                        media.play().catch(function() {});
+                    }
+                }, 200);
+            }, true);
+        }
+
+        if (window.MediaSession) {
+            try {
+                const proto = MediaSession.prototype;
+                const descriptor = Object.getOwnPropertyDescriptor(proto, 'playbackState');
+                if (descriptor && descriptor.set) {
+                    const origSet = descriptor.set;
+                    safeDefine(proto, 'playbackState', {
+                        get: descriptor.get,
+                        set(value) {
+                            if (state.enabled && (value === 'paused' || value === 'none')) return;
+                            origSet.call(this, value);
+                        }
+                    });
+                }
+            } catch {}
+        }
+    }
+
+    function installMessageBridge() {
+        state.originals.eventTargetAdd.call(window, 'message', function(event) {
+            if (!event.data || event.data.source !== 'always-active-extension') return;
+
+            if (event.data.type === 'ALWAYS_ACTIVE_ENABLE') {
+                enable();
+            } else if (event.data.type === 'ALWAYS_ACTIVE_DISABLE') {
+                disable();
+            } else if (event.data.type === 'ALWAYS_ACTIVE_QUERY') {
+                window.postMessage({
+                    type: 'ALWAYS_ACTIVE_STATUS',
+                    source: 'always-active-injected',
+                    enabled: state.enabled
+                }, '*');
+            }
+        });
+    }
+
+    rememberOriginals();
+    installEventPatches();
+    installVisibilityPatches();
+    installFocusPatches();
+    installUserActivationPatch();
+    installTimingPatches();
+    installAudioPatches();
+    installIntersectionObserverPatch();
+    installMediaPatches();
+    installMessageBridge();
+
+})();
