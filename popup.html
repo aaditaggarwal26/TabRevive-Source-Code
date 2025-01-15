@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TabRevive - Keep Tabs Alive</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 420px;
+            min-height: 640px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        .header {
+            padding: 24px 24px 20px;
+            background: #111111;
+            border-bottom: 1px solid #222222;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-icon {
+            width: 20px;
+            height: 20px;
+            background: #00cc66;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #000000;
+            font-weight: 900;
+        }
+
+        .header p {
+            font-size: 13px;
+            color: #888888;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        .status-bar {
+            background: #0f0f0f;
+            padding: 12px 24px;
+            border-bottom: 1px solid #222222;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00cc66;
+            flex-shrink: 0;
+        }
+
+        .status-indicator.inactive {
+            background: #ff4757;
+        }
+
+        .status-text {
+            font-size: 12px;
+            color: #cccccc;
+            font-weight: 500;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            padding: 20px 24px;
+            background: #0f0f0f;
+            border-bottom: 1px solid #222222;
+        }
+
+        .stat-card {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 14px;
+            text-align: center;
+            transition: border-color 0.15s;
+        }
+
+        .stat-card:hover {
+            border-color: #3a3a3a;
+        }
+
+        .stat-number {
+            font-size: 20px;
+            font-weight: 800;
+            color: #00cc66;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: #666666;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .current-tab {
+            padding: 20px 24px;
+            background: #0a0a0a;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #cccccc;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-icon {
+            font-size: 16px;
+        }
+
+        .tab-card {
+            background: #161616;
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 16px;
+            transition: border-color 0.15s;
+        }
+
+        .tab-card:hover {
+            border-color: #333333;
+        }
+
+        .tab-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .tab-favicon {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            background: #333333;
+            flex-shrink: 0;
+        }
+
+        .tab-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .tab-title {
+            font-weight: 500;
+            font-size: 14px;
+            color: #ffffff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
