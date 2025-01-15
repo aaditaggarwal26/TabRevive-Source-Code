@@ -180,3 +180,185 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            margin-bottom: 2px;
+        }
+
+        .tab-url {
+            font-size: 12px;
+            color: #666666;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .tab-meta {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 11px;
+            color: #666666;
+        }
+
+        .tab-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .toggle-button {
+            background: #00cc66;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            color: #000000;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.15s;
+            width: 100%;
+        }
+
+        .toggle-button:hover {
+            background: #00b359;
+        }
+
+        .toggle-button.active {
+            background: #e53e3e;
+            color: #ffffff;
+        }
+
+        .toggle-button.active:hover {
+            background: #c53030;
+        }
+
+        .features-section {
+            padding: 20px 24px;
+            background: #0a0a0a;
+            border-top: 1px solid #222222;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .feature-button {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 12px;
+            color: #cccccc;
+            font-size: 12px;
+            cursor: pointer;
+            transition: border-color 0.15s, color 0.15s;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .feature-button:hover {
+            border-color: #3a3a3a;
+            color: #ffffff;
+        }
+
+        .feature-icon {
+            font-size: 16px;
+        }
+
+        .active-tabs {
+            padding: 20px 24px;
+            max-height: 200px;
+            overflow-y: auto;
+            background: #0a0a0a;
+        }
+
+        .active-tab-item {
+            background: #161616;
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: border-color 0.15s;
+        }
+
+        .active-tab-item:hover {
+            border-color: #333333;
+        }
+
+        .active-tab-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .activity-indicator {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #00cc66;
+            flex-shrink: 0;
+        }
+
+        .activity-indicator.inactive {
+            background: #555555;
+        }
+
+        .remove-button {
+            background: #2a2a2a;
+            border: none;
+            border-radius: 6px;
+            width: 28px;
+            height: 28px;
+            color: #aaaaaa;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.15s, color 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .remove-button:hover {
+            background: #e53e3e;
+            color: #ffffff;
+        }
+
+        .tab-favicon-small {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            background: #333333;
+            flex-shrink: 0;
+        }
+
+        .active-tab-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #ffffff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 2px;
+        }
+
+        .active-tab-url {
+            font-size: 11px;
+            color: #666666;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
