@@ -119,3 +119,124 @@ async function updateActiveTabsList(alwaysActiveTabs, allTabs) {
     if (activeTabs.length === 0) {
         listEl.innerHTML = `
             <div class="empty-state">
+                <div class="empty-state-icon">*</div>
+                <div class="empty-state-text">No tabs are always active yet</div>
+                <div class="empty-state-subtext">Click "Make Always Active" to start</div>
+            </div>
+        `;
+        return;
+    }
+    
+    listEl.innerHTML = '';
+    
+    for (const [tabId, tabInfo] of activeTabs) {
+        const tabExists = allTabs.find(tab => tab.id.toString() === tabId);
+        
+        const itemEl = document.createElement('div');
+        itemEl.className = 'active-tab-item';
+        
+        const hostname = tabInfo.url ? getHostname(tabInfo.url) : 'Unknown';
+        const age = getTimeSince(tabInfo.timestamp);
+        const isActive = tabExists && await isTabResponding(parseInt(tabId));
+        
+        itemEl.innerHTML = `
+            <div class="active-tab-info">
+                <div class="activity-indicator ${isActive ? '' : 'inactive'}"></div>
+                <img class="tab-favicon-small" src="${tabInfo.favIconUrl || ''}" alt="" onerror="this.style.display='none'">
+                <div style="flex: 1; min-width: 0;">
+                    <div class="active-tab-title">
+                        ${tabInfo.title || 'Unknown Title'}
+                    </div>
+                    <div class="active-tab-url">
+                        ${hostname} - ${age}${!tabExists ? ' (closed)' : ''}
+                    </div>
+                </div>
+            </div>
+            <button class="remove-button" data-tab-id="${tabId}" title="Remove from always active">x</button>
+        `;
+        
+        const removeBtn = itemEl.querySelector('.remove-button');
+        removeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            removeAlwaysActive(tabId);
+        });
+        
+        itemEl.addEventListener('click', () => {
+            if (tabExists) {
+                chrome.tabs.update(parseInt(tabId), { active: true });
+                window.close();
+            }
+        });
+        
+        listEl.appendChild(itemEl);
+    }
+}
+
+function getHostname(url) {
+    try {
+        return new URL(url).hostname;
+    } catch {
+        return 'Invalid URL';
+    }
+}
+
+function getTimeSince(timestamp) {
+    const diff = Date.now() - timestamp;
+    const minutes = Math.floor(diff / 60000);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    
+    if (days > 0) return `${days}d`;
+    if (hours > 0) return `${hours}h`;
+    if (minutes > 0) return `${minutes}m`;
+    return 'now';
+}
+
+async function isTabAlwaysActive(tabId) {
+    const result = await chrome.storage.local.get(['alwaysActiveTabs']);
+    const alwaysActiveTabs = result.alwaysActiveTabs || {};
+    return alwaysActiveTabs.hasOwnProperty(tabId.toString()) && 
+           !alwaysActiveTabs[tabId.toString()].closed;
+}
+
+async function isTabResponding(tabId) {
+    try {
+        const response = await chrome.tabs.sendMessage(tabId, { action: 'ping' });
+        return response && response.alive;
+    } catch {
+        return false;
+    }
+}
+
+function updateToggleButton(currentTabId, alwaysActiveTabs) {
+    const toggleBtn = document.getElementById('toggleButton');
+    const isActive = alwaysActiveTabs.hasOwnProperty(currentTabId.toString()) &&
+                    !alwaysActiveTabs[currentTabId.toString()].closed;
+    
+    if (isActive) {
+        toggleBtn.textContent = 'Disable Always Active';
+        toggleBtn.classList.add('active');
+    } else {
+        toggleBtn.textContent = 'Make Always Active';
+        toggleBtn.classList.remove('active');
+    }
+}
+
+function updateGlobalStatus(alwaysActiveTabs) {
+    const statusIndicator = document.getElementById('globalStatus');
+    const statusText = document.getElementById('statusText');
+    
+    const activeCount = Object.keys(alwaysActiveTabs).filter(
+        tabId => !alwaysActiveTabs[tabId].closed
+    ).length;
+    
+    if (activeCount > 0) {
+        statusIndicator.classList.remove('inactive');
+        statusText.textContent = `${activeCount} tabs active`;
+    } else {
+        statusIndicator.classList.add('inactive');
+        statusText.textContent = 'No active tabs';
+    }
+}
+
+function setupEventListeners() {
