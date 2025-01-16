@@ -362,3 +362,183 @@
         .empty-state {
             text-align: center;
             padding: 40px 20px;
+            color: #666666;
+        }
+
+        .empty-state-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            opacity: 0.6;
+        }
+
+        .empty-state-text {
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .empty-state-subtext {
+            font-size: 11px;
+            color: #555555;
+        }
+
+        .footer {
+            padding: 16px 24px;
+            background: #111111;
+            border-top: 1px solid #222222;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 11px;
+            color: #666666;
+            line-height: 1.4;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333333;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444444;
+        }
+
+        .notification {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #00cc66;
+            color: #000000;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: opacity 0.2s, transform 0.2s;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>
+            <div class="header-icon">TR</div>
+            TabRevive - Keep Tabs Alive
+        </h1>
+        <p>Keep tabs alive when switching away</p>
+    </div>
+
+    <div class="status-bar">
+        <div class="status-indicator" id="globalStatus"></div>
+        <div class="status-text" id="statusText">Extension Ready</div>
+    </div>
+
+    <div class="stats">
+        <div class="stat-card">
+            <div class="stat-number" id="activeCount">0</div>
+            <div class="stat-label">Active</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="totalTabs">0</div>
+            <div class="stat-label">Total</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="uptime">0s</div>
+            <div class="stat-label">Uptime</div>
+        </div>
+    </div>
+
+    <div class="current-tab">
+        <div class="section-title">
+            <span class="section-icon">TAB</span>
+            Current Tab
+        </div>
+        <div class="tab-card" id="currentTabCard">
+            <div class="tab-info">
+                <img class="tab-favicon" id="currentFavicon" src="" alt="">
+                <div class="tab-details">
+                    <div class="tab-title" id="currentTitle">Loading...</div>
+                    <div class="tab-url" id="currentUrl">...</div>
+                </div>
+            </div>
+            <div class="tab-meta">
+                <div class="tab-meta-item">
+                    <span>MEM</span>
+                    <span id="tabMemory">-</span>
+                </div>
+                <div class="tab-meta-item">
+                    <span>AGE</span>
+                    <span id="tabAge">-</span>
+                </div>
+                <div class="tab-meta-item">
+                    <span>STATE</span>
+                    <span id="tabStatus">Loading</span>
+                </div>
+            </div>
+            <button class="toggle-button" id="toggleButton">Make Always Active</button>
+        </div>
+    </div>
+
+    <div class="features-section">
+        <div class="section-title">
+            <span class="section-icon">TOOLS</span>
+            Quick Actions
+        </div>
+        <div class="feature-grid">
+            <button class="feature-button" id="refreshAllBtn">
+                <div class="feature-icon">REF</div>
+                <div>Refresh Active</div>
+            </button>
+            <button class="feature-button" id="muteAllBtn">
+                <div class="feature-icon">MUTE</div>
+                <div>Mute All</div>
+            </button>
+            <button class="feature-button" id="exportBtn">
+                <div class="feature-icon">EXP</div>
+                <div>Export List</div>
+            </button>
+            <button class="feature-button" id="settingsBtn">
+                <div class="feature-icon">SET</div>
+                <div>Settings</div>
+            </button>
+        </div>
+    </div>
+
+    <div class="active-tabs">
+        <div class="section-title">
+            <span class="section-icon">ON</span>
+            Active Tabs
+            <span style="margin-left: auto; font-size: 11px; color: #666666;" id="activeTabsCount">0</span>
+        </div>
+        <div id="activeTabsList">
+            <div class="empty-state">
+                <div class="empty-state-icon">*</div>
+                <div class="empty-state-text">No tabs are always active yet</div>
+                <div class="empty-state-subtext">Click "Make Always Active" to start</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-text">TabRevive 2.0.4</div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
