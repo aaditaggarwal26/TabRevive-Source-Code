@@ -240,3 +240,124 @@ function updateGlobalStatus(alwaysActiveTabs) {
 }
 
 function setupEventListeners() {
+    document.getElementById('toggleButton').addEventListener('click', () => {
+        toggleAlwaysActive(currentTabId);
+    });
+    
+    document.getElementById('refreshAllBtn').addEventListener('click', refreshAllActiveTabs);
+    document.getElementById('muteAllBtn').addEventListener('click', muteAllActiveTabs);
+    document.getElementById('exportBtn').addEventListener('click', exportActiveTabsList);
+    document.getElementById('settingsBtn').addEventListener('click', openSettings);
+    
+    chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+        if (changeInfo.status === 'complete') {
+            setTimeout(() => {
+                location.reload();
+            }, 100);
+        }
+    });
+    
+    chrome.tabs.onRemoved.addListener(() => {
+        setTimeout(() => {
+            location.reload();
+        }, 100);
+    });
+}
+
+async function toggleAlwaysActive(tabId) {
+    try {
+        const result = await chrome.storage.local.get(['alwaysActiveTabs']);
+        const alwaysActiveTabs = result.alwaysActiveTabs || {};
+        
+        if (alwaysActiveTabs.hasOwnProperty(tabId.toString()) && 
+            !alwaysActiveTabs[tabId.toString()].closed) {
+            delete alwaysActiveTabs[tabId.toString()];
+            
+            try {
+                await chrome.tabs.sendMessage(tabId, { action: 'disableAlwaysActive' });
+                showNotification('Always Active disabled', 'success');
+            } catch (error) {
+                console.log('Could not send disable message to tab:', error);
+            }
+        } else {
+            const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+            alwaysActiveTabs[tabId.toString()] = {
+                title: tab.title,
+                url: tab.url,
+                favIconUrl: tab.favIconUrl,
+                timestamp: Date.now(),
+                closed: false
+            };
+            
+            try {
+                await chrome.tabs.sendMessage(tabId, { action: 'enableAlwaysActive' });
+                showNotification('Always Active enabled', 'success');
+            } catch (error) {
+                console.log('Could not send enable message to tab:', error);
+                showNotification('Warning: Content script not ready', 'warning');
+            }
+        }
+        
+        await chrome.storage.local.set({ alwaysActiveTabs });
+        
+        chrome.runtime.sendMessage({ 
+            action: 'updateAlwaysActive', 
+            tabId: tabId.toString(),
+            isActive: alwaysActiveTabs.hasOwnProperty(tabId.toString())
+        });
+        
+        setTimeout(() => location.reload(), 100);
+        
+    } catch (error) {
+        console.error('Failed to toggle always active:', error);
+        showNotification('Failed to toggle always active', 'error');
+    }
+}
+
+async function removeAlwaysActive(tabId) {
+    try {
+        const result = await chrome.storage.local.get(['alwaysActiveTabs']);
+        const alwaysActiveTabs = result.alwaysActiveTabs || {};
+        
+        delete alwaysActiveTabs[tabId];
+        
+        try {
+            await chrome.tabs.sendMessage(parseInt(tabId), { action: 'disableAlwaysActive' });
+        } catch (error) {
+            console.log('Could not send disable message to tab:', error);
+        }
+        
+        await chrome.storage.local.set({ alwaysActiveTabs });
+        
+        chrome.runtime.sendMessage({ 
+            action: 'updateAlwaysActive', 
+            tabId: tabId,
+            isActive: false
+        });
+        
+        showNotification('Tab removed from always active', 'success');
+        
+        setTimeout(() => location.reload(), 100);
+        
+    } catch (error) {
+        console.error('Failed to remove always active:', error);
+        showNotification('Failed to remove tab', 'error');
+    }
+}
+
+async function refreshAllActiveTabs() {
+    try {
+        const result = await chrome.storage.local.get(['alwaysActiveTabs']);
+        const alwaysActiveTabs = result.alwaysActiveTabs || {};
+        
+        const refreshPromises = Object.keys(alwaysActiveTabs)
+            .filter(tabId => !alwaysActiveTabs[tabId].closed)
+            .map(async (tabId) => {
+                try {
+                    await chrome.tabs.reload(parseInt(tabId));
+                } catch (error) {
+                    console.log(`Could not refresh tab ${tabId}:`, error);
+                }
+            });
+        
+        await Promise.all(refreshPromises);
