@@ -361,3 +361,122 @@ async function refreshAllActiveTabs() {
             });
         
         await Promise.all(refreshPromises);
+        showNotification('All active tabs refreshed', 'success');
+        
+    } catch (error) {
+        console.error('Failed to refresh tabs:', error);
+        showNotification('Failed to refresh tabs', 'error');
+    }
+}
+
+async function muteAllActiveTabs() {
+    try {
+        const result = await chrome.storage.local.get(['alwaysActiveTabs']);
+        const alwaysActiveTabs = result.alwaysActiveTabs || {};
+        
+        const mutePromises = Object.keys(alwaysActiveTabs)
+            .filter(tabId => !alwaysActiveTabs[tabId].closed)
+            .map(async (tabId) => {
+                try {
+                    const tab = await chrome.tabs.get(parseInt(tabId));
+                    await chrome.tabs.update(parseInt(tabId), { muted: !tab.mutedInfo.muted });
+                } catch (error) {
+                    console.log(`Could not toggle mute for tab ${tabId}:`, error);
+                }
+            });
+        
+        await Promise.all(mutePromises);
+        showNotification('Tab audio toggled', 'success');
+        
+    } catch (error) {
+        console.error('Failed to mute tabs:', error);
+        showNotification('Failed to toggle audio', 'error');
+    }
+}
+
+async function exportActiveTabsList() {
+    try {
+        const result = await chrome.storage.local.get(['alwaysActiveTabs']);
+        const alwaysActiveTabs = result.alwaysActiveTabs || {};
+        
+        const exportData = Object.entries(alwaysActiveTabs)
+            .filter(([tabId, tabInfo]) => !tabInfo.closed)
+            .map(([tabId, tabInfo]) => ({
+                title: tabInfo.title,
+                url: tabInfo.url,
+                timestamp: new Date(tabInfo.timestamp).toISOString()
+            }));
+        
+        const blob = new Blob([JSON.stringify(exportData, null, 2)], { 
+            type: 'application/json' 
+        });
+        
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `tabrevive-export-${Date.now()}.json`;
+        a.click();
+        
+        URL.revokeObjectURL(url);
+        showNotification('Export downloaded', 'success');
+        
+    } catch (error) {
+        console.error('Failed to export:', error);
+        showNotification('Failed to export', 'error');
+    }
+}
+
+function openSettings() {
+    chrome.tabs.create({ url: chrome.runtime.getURL('settings.html') });
+}
+
+function updateDynamicElements() {
+    const uptime = Math.floor((Date.now() - extensionStartTime) / 1000);
+    document.getElementById('uptime').textContent = formatDuration(uptime);
+}
+
+function showNotification(message, type = 'info') {
+    const notification = document.getElementById('notification');
+    
+    switch (type) {
+        case 'success':
+            notification.style.background = '#00ff88';
+            notification.style.color = '#000000';
+            break;
+        case 'warning':
+            notification.style.background = '#ffa502';
+            notification.style.color = '#000000';
+            break;
+        case 'error':
+            notification.style.background = '#ff4757';
+            notification.style.color = '#ffffff';
+            break;
+        default:
+            notification.style.background = '#00ccff';
+            notification.style.color = '#000000';
+    }
+    
+    notification.textContent = message;
+    notification.classList.add('show');
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, 3000);
+}
+
+function getDefaultSettings() {
+    return {
+        autoRefresh: false,
+        autoRefreshInterval: 300000,
+        enableNotifications: true,
+        enablePerformanceMonitoring: true,
+        maxActiveTabs: 25,
+        aggressiveMode: true,
+        enableSilentAudio: true,
+        enableHeartbeat: true,
+        heartbeatInterval: 1000,
+        enableMemoryMonitoring: true,
+        memoryWarningThreshold: 500,
+        autoDisableOnLowBattery: false
+    };
+}
