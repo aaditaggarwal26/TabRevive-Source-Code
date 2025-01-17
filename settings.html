@@ -171,3 +171,176 @@
             border: none;
             border-radius: 8px;
             padding: 12px 24px;
+            color: #000000;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.3);
+        }
+
+        .button.secondary {
+            background: #333333;
+            color: #ffffff;
+        }
+
+        .button.secondary:hover {
+            background: #444444;
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
+        }
+
+        .button.danger {
+            background: linear-gradient(135deg, #ff4757, #ff6b7a);
+            color: #ffffff;
+        }
+
+        .button.danger:hover {
+            box-shadow: 0 8px 25px rgba(255, 71, 87, 0.3);
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 1px solid #222222;
+        }
+
+        .warning {
+            background: #2a1f00;
+            border: 1px solid #ffa502;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .warning-title {
+            color: #ffa502;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .warning-text {
+            color: #cccccc;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .stat-card {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #00ff88;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>TabRevive - Keep Tabs Alive Settings</h1>
+            <p>Configure advanced tab keep-alive settings and performance options</p>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Core Features</h2>
+            
+            <div class="setting-group">
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Aggressive Mode</div>
+                        <div class="setting-description">Use all available techniques to keep tabs active (recommended)</div>
+                    </div>
+                    <div class="setting-control">
+                        <div class="toggle-switch active" data-setting="aggressiveMode">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Enable Silent Audio</div>
+                        <div class="setting-description">Play silent audio to prevent tab suspension</div>
+                    </div>
+                    <div class="setting-control">
+                        <div class="toggle-switch active" data-setting="enableSilentAudio">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Heartbeat Monitoring</div>
+                        <div class="setting-description">Continuously monitor tab activity</div>
+                    </div>
+                    <div class="setting-control">
+                        <div class="toggle-switch active" data-setting="enableHeartbeat">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Heartbeat Interval</div>
+                        <div class="setting-description">How often to check tab activity (milliseconds)</div>
+                    </div>
+                    <div class="setting-control">
+                        <input type="number" class="number-input" min="1000" max="10000" step="500" value="1000" data-setting="heartbeatInterval">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Performance & Monitoring</h2>
+            
+            <div class="setting-group">
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Performance Monitoring</div>
+                        <div class="setting-description">Track memory usage and performance metrics</div>
+                    </div>
+                    <div class="setting-control">
+                        <div class="toggle-switch active" data-setting="enablePerformanceMonitoring">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Memory Monitoring</div>
+                        <div class="setting-description">Monitor and warn about high memory usage</div>
+                    </div>
+                    <div class="setting-control">
+                        <div class="toggle-switch active" data-setting="enableMemoryMonitoring">
+                            <div class="toggle-slider"></div>
