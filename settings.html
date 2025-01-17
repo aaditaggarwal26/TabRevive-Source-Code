@@ -344,3 +344,174 @@
                     <div class="setting-control">
                         <div class="toggle-switch active" data-setting="enableMemoryMonitoring">
                             <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Memory Warning Threshold</div>
+                        <div class="setting-description">Show warning when tab uses more than this amount (MB)</div>
+                    </div>
+                    <div class="setting-control">
+                        <input type="number" class="number-input" min="100" max="2000" step="50" value="500" data-setting="memoryWarningThreshold">
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Maximum Active Tabs</div>
+                        <div class="setting-description">Limit the number of simultaneously active tabs</div>
+                    </div>
+                    <div class="setting-control">
+                        <input type="number" class="number-input" min="1" max="50" step="1" value="25" data-setting="maxActiveTabs">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Notifications & Auto-Actions</h2>
+            
+            <div class="setting-group">
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Enable Notifications</div>
+                        <div class="setting-description">Show notifications for important events</div>
+                    </div>
+                    <div class="setting-control">
+                        <div class="toggle-switch active" data-setting="enableNotifications">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Auto Refresh Tabs</div>
+                        <div class="setting-description">Automatically refresh active tabs periodically</div>
+                    </div>
+                    <div class="setting-control">
+                        <div class="toggle-switch" data-setting="autoRefresh">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Auto Refresh Interval</div>
+                        <div class="setting-description">How often to refresh active tabs (minutes)</div>
+                    </div>
+                    <div class="setting-control">
+                        <select class="select-input" data-setting="autoRefreshInterval">
+                            <option value="60000">1 minute</option>
+                            <option value="300000" selected>5 minutes</option>
+                            <option value="600000">10 minutes</option>
+                            <option value="1800000">30 minutes</option>
+                            <option value="3600000">1 hour</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Auto-Disable on Low Battery</div>
+                        <div class="setting-description">Automatically disable always active when battery is low</div>
+                    </div>
+                    <div class="setting-control">
+                        <div class="toggle-switch" data-setting="autoDisableOnLowBattery">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Statistics</h2>
+            
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalActivations">0</div>
+                    <div class="stat-label">Total Activations</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="averageActiveTime">0m</div>
+                    <div class="stat-label">Average Active Time</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="currentActive">0</div>
+                    <div class="stat-label">Currently Active</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="extensionUptime">0h</div>
+                    <div class="stat-label">Extension Uptime</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Advanced</h2>
+            
+            <div class="warning">
+                <div class="warning-title">Warning</div>
+                <div class="warning-text">
+                    These actions will affect all active tabs and cannot be undone easily.
+                    Make sure you understand the consequences before proceeding.
+                </div>
+            </div>
+
+            <div class="setting-group">
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Reset All Settings</div>
+                        <div class="setting-description">Restore all settings to their default values</div>
+                    </div>
+                    <div class="setting-control">
+                        <button class="button secondary" id="resetSettingsBtn">Reset Settings</button>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Clear All Data</div>
+                        <div class="setting-description">Remove all stored data including active tabs and statistics</div>
+                    </div>
+                    <div class="setting-control">
+                        <button class="button danger" id="clearDataBtn">Clear All Data</button>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Export Settings</div>
+                        <div class="setting-description">Download your current settings as a backup file</div>
+                    </div>
+                    <div class="setting-control">
+                        <button class="button secondary" id="exportSettingsBtn">Export</button>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Import Settings</div>
+                        <div class="setting-description">Load settings from a backup file</div>
+                    </div>
+                    <div class="setting-control">
+                        <input type="file" id="importFileInput" accept=".json" style="display: none;">
+                        <button class="button secondary" id="importSettingsBtn">Import</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button class="button" id="saveBtn">Save Settings</button>
+            <button class="button secondary" id="cancelBtn">Cancel</button>
+        </div>
+    </div>
+
+    <script src="settings.js"></script>
+</body>
+</html>
