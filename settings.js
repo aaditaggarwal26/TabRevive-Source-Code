@@ -190,3 +190,98 @@ async function exportSettings() {
         const exportData = {
             settings: currentSettings,
             exportDate: new Date().toISOString(),
+            version: '2.0.4'
+        };
+        
+        const blob = new Blob([JSON.stringify(exportData, null, 2)], {
+            type: 'application/json'
+        });
+        
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `tabrevive-settings-${Date.now()}.json`;
+        a.click();
+        
+        URL.revokeObjectURL(url);
+        showNotification('Settings exported successfully', 'success');
+        
+    } catch (error) {
+        console.error('Failed to export settings:', error);
+        showNotification('Failed to export settings', 'error');
+    }
+}
+
+async function importSettings(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    try {
+        const text = await file.text();
+        const importData = JSON.parse(text);
+        
+        if (importData.settings) {
+            currentSettings = { ...getDefaultSettings(), ...importData.settings };
+            applySettingsToUI();
+            showNotification('Settings imported successfully', 'success');
+        } else {
+            throw new Error('Invalid settings file format');
+        }
+        
+    } catch (error) {
+        console.error('Failed to import settings:', error);
+        showNotification('Failed to import settings - invalid file', 'error');
+    }
+    
+    event.target.value = '';
+}
+
+function startStatsUpdater() {
+    setInterval(loadStatistics, 5000);
+}
+
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = 'notification show';
+    notification.textContent = message;
+    
+    switch (type) {
+        case 'success':
+            notification.style.background = '#00ff88';
+            notification.style.color = '#000000';
+            break;
+        case 'error':
+            notification.style.background = '#ff4757';
+            notification.style.color = '#ffffff';
+            break;
+        default:
+            notification.style.background = '#00ccff';
+            notification.style.color = '#000000';
+    }
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 3000);
+}
+
+function getDefaultSettings() {
+    return {
+        autoRefresh: false,
+        autoRefreshInterval: 300000,
+        enableNotifications: true,
+        enablePerformanceMonitoring: true,
+        maxActiveTabs: 25,
+        aggressiveMode: true,
+        enableSilentAudio: true,
+        enableHeartbeat: true,
+        heartbeatInterval: 1000,
+        enableMemoryMonitoring: true,
+        memoryWarningThreshold: 500,
+        autoDisableOnLowBattery: false
+    };
+}
