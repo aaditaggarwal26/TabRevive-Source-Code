@@ -94,3 +94,99 @@ function setupEventListeners() {
     
     document.querySelectorAll('.select-input').forEach(select => {
         select.addEventListener('change', () => {
+            const setting = select.dataset.setting;
+            currentSettings[setting] = parseInt(select.value);
+        });
+    });
+    
+    document.getElementById('saveBtn').addEventListener('click', saveSettings);
+    document.getElementById('cancelBtn').addEventListener('click', () => window.close());
+    document.getElementById('resetSettingsBtn').addEventListener('click', resetSettings);
+    document.getElementById('clearDataBtn').addEventListener('click', clearAllData);
+    document.getElementById('exportSettingsBtn').addEventListener('click', exportSettings);
+    document.getElementById('importSettingsBtn').addEventListener('click', () => {
+        document.getElementById('importFileInput').click();
+    });
+    
+    document.getElementById('importFileInput').addEventListener('change', importSettings);
+}
+
+function enableAggressiveMode() {
+    currentSettings.aggressiveMode = true;
+    currentSettings.enableSilentAudio = true;
+    currentSettings.enableHeartbeat = true;
+    currentSettings.heartbeatInterval = 1000;
+    currentSettings.enablePerformanceMonitoring = true;
+    currentSettings.enableMemoryMonitoring = true;
+    
+    applySettingsToUI();
+    showNotification('Aggressive mode enabled with optimal settings', 'success');
+}
+
+async function saveSettings() {
+    try {
+        await chrome.storage.local.set({ extensionSettings: currentSettings });
+        
+        await chrome.runtime.sendMessage({
+            action: 'updateSettings',
+            settings: currentSettings
+        });
+        
+        showNotification('Settings saved successfully', 'success');
+        
+        setTimeout(() => {
+            window.close();
+        }, 1500);
+        
+    } catch (error) {
+        console.error('Failed to save settings:', error);
+        showNotification('Failed to save settings', 'error');
+    }
+}
+
+async function resetSettings() {
+    if (!confirm('Reset all settings to default values? This cannot be undone.')) {
+        return;
+    }
+    
+    try {
+        currentSettings = getDefaultSettings();
+        applySettingsToUI();
+        showNotification('Settings reset to defaults', 'success');
+    } catch (error) {
+        console.error('Failed to reset settings:', error);
+        showNotification('Failed to reset settings', 'error');
+    }
+}
+
+async function clearAllData() {
+    if (!confirm('Clear ALL extension data including active tabs and statistics? This cannot be undone.')) {
+        return;
+    }
+    
+    if (!confirm('Are you absolutely sure? This will remove all your active tabs and statistics permanently.')) {
+        return;
+    }
+    
+    try {
+        await chrome.storage.local.clear();
+        
+        await chrome.runtime.sendMessage({ action: 'clearAllData' });
+        
+        showNotification('All data cleared successfully', 'success');
+        
+        setTimeout(() => {
+            location.reload();
+        }, 2000);
+        
+    } catch (error) {
+        console.error('Failed to clear data:', error);
+        showNotification('Failed to clear data', 'error');
+    }
+}
+
+async function exportSettings() {
+    try {
+        const exportData = {
+            settings: currentSettings,
+            exportDate: new Date().toISOString(),
