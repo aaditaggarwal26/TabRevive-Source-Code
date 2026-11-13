@@ -1,0 +1,205 @@
+{
+  "extName": {
+    "message": "TabRevive: Sekmeleri Aktif Tut"
+  },
+  "extDescription": {
+    "message": "Seçtiğiniz sekmeleri arka planda çalışır tutar: siteler sekme değiştirdiğinizi anlamaz, zamanlayıcılar yavaşlamaz."
+  },
+  "cmdToggle": {
+    "message": "Geçerli sekme için her zaman aktifi aç/kapat"
+  },
+  "cmdDisableAll": {
+    "message": "Tüm sekmeler için her zaman aktifi kapat"
+  },
+  "popupTagline": {
+    "message": "Sekme değiştirirken sekmeler aktif kalır"
+  },
+  "statusNone": {
+    "message": "Aktif sekme yok"
+  },
+  "statusOne": {
+    "message": "1 sekme aktif"
+  },
+  "statusMany": {
+    "message": "$P0$ sekme aktif",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "statProtected": {
+    "message": "Korunan"
+  },
+  "statOpenTabs": {
+    "message": "Açık sekme"
+  },
+  "statSites": {
+    "message": "Siteler"
+  },
+  "sectionCurrentTab": {
+    "message": "Geçerli sekme"
+  },
+  "labelState": {
+    "message": "Durum"
+  },
+  "stateActive": {
+    "message": "Her zaman aktif"
+  },
+  "stateStandby": {
+    "message": "Beklemede"
+  },
+  "untitled": {
+    "message": "Başlıksız"
+  },
+  "loading": {
+    "message": "Yükleniyor…"
+  },
+  "btnEnable": {
+    "message": "Her zaman aktif tut"
+  },
+  "btnDisable": {
+    "message": "Aktif tutmayı bırak"
+  },
+  "siteOn": {
+    "message": "$P0$ sitesini her zaman aktif tut",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "siteOff": {
+    "message": "$P0$ sitesini aktif tutmayı bırak",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "sectionQuick": {
+    "message": "Hızlı işlemler"
+  },
+  "actRefresh": {
+    "message": "Aktifleri yenile"
+  },
+  "actMute": {
+    "message": "Tümünü sessize al"
+  },
+  "actExport": {
+    "message": "Listeyi dışa aktar"
+  },
+  "actSettings": {
+    "message": "Ayarlar"
+  },
+  "sectionActive": {
+    "message": "Aktif sekmeler"
+  },
+  "emptyTitle": {
+    "message": "Henüz her zaman aktif sekme yok"
+  },
+  "emptyHint": {
+    "message": "Başlamak için “Her zaman aktif tut”a tıklayın"
+  },
+  "tagSiteRule": {
+    "message": "site kuralı"
+  },
+  "removeTab": {
+    "message": "Her zaman aktiften çıkar"
+  },
+  "justNow": {
+    "message": "şimdi"
+  },
+  "toastRefreshed": {
+    "message": "Aktif sekmeler yenilendi"
+  },
+  "toastNothingRefresh": {
+    "message": "Yenilenecek aktif sekme yok"
+  },
+  "toastMuted": {
+    "message": "Sekme sesi değiştirildi"
+  },
+  "toastNothingMute": {
+    "message": "Sessize alınacak aktif sekme yok"
+  },
+  "toastExported": {
+    "message": "Dışa aktarım indirildi"
+  },
+  "errUpdateTab": {
+    "message": "Sekme güncellenemedi"
+  },
+  "errSiteRule": {
+    "message": "Site kuralı güncellenemedi"
+  },
+  "errLoad": {
+    "message": "Veriler yüklenemedi"
+  },
+  "rateAsk": {
+    "message": "TabRevive hoşunuza gitti mi? Kısa bir puan verirseniz çok sevinirim :)"
+  },
+  "rateYes": {
+    "message": "Puan ver"
+  },
+  "rateNo": {
+    "message": "Hayır, teşekkürler"
+  },
+  "errTabNotFound": {
+    "message": "Sekme bulunamadı"
+  },
+  "errCannotProtect": {
+    "message": "Bu sayfa aktif tutulamaz"
+  },
+  "errLimit": {
+    "message": "$P0$ aktif sekme sınırına ulaşıldı",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteEnabledTitle": {
+    "message": "Her zaman aktif açıldı"
+  },
+  "noteDisabledTitle": {
+    "message": "Her zaman aktif kapatıldı"
+  },
+  "noteEnabledFor": {
+    "message": "Açıldı: $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteDisabledFor": {
+    "message": "Kapatıldı: $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteAllOffTitle": {
+    "message": "Tüm sekmeler kapatıldı"
+  },
+  "noteAllOff": {
+    "message": "$P0$ sekme için kapatıldı",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoneTitle": {
+    "message": "Aktif sekme yok"
+  },
+  "noteNone": {
+    "message": "Şu anda her zaman aktif sekme yok"
+  },
+  "noteInstalledTitle": {
+    "message": "TabRevive yüklendi"
+  },
+  "noteInstalled": {
+    "message": "Bir sekmeyi aktif tutmak için uzantı simgesine tıklayın."
+  }
+}

@@ -1,0 +1,205 @@
+{
+  "extName": {
+    "message": "TabRevive: Keep Tabs Active & Tab Keep Alive"
+  },
+  "extDescription": {
+    "message": "Keep tabs active and always visible: prevent tab sleeping, disable tab throttling, and stop auto logout when you switch away."
+  },
+  "cmdToggle": {
+    "message": "Toggle always active for the current tab"
+  },
+  "cmdDisableAll": {
+    "message": "Turn off always active for all tabs"
+  },
+  "popupTagline": {
+    "message": "Keep tabs alive when switching away"
+  },
+  "statusNone": {
+    "message": "No active tabs"
+  },
+  "statusOne": {
+    "message": "1 tab active"
+  },
+  "statusMany": {
+    "message": "$P0$ tabs active",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "statProtected": {
+    "message": "Protected"
+  },
+  "statOpenTabs": {
+    "message": "Open tabs"
+  },
+  "statSites": {
+    "message": "Sites"
+  },
+  "sectionCurrentTab": {
+    "message": "Current Tab"
+  },
+  "labelState": {
+    "message": "State"
+  },
+  "stateActive": {
+    "message": "Always Active"
+  },
+  "stateStandby": {
+    "message": "Standby"
+  },
+  "untitled": {
+    "message": "Untitled"
+  },
+  "loading": {
+    "message": "Loading…"
+  },
+  "btnEnable": {
+    "message": "Make Always Active"
+  },
+  "btnDisable": {
+    "message": "Disable Always Active"
+  },
+  "siteOn": {
+    "message": "Always keep $P0$ active",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "siteOff": {
+    "message": "Stop always keeping $P0$ active",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "sectionQuick": {
+    "message": "Quick Actions"
+  },
+  "actRefresh": {
+    "message": "Refresh Active"
+  },
+  "actMute": {
+    "message": "Mute All"
+  },
+  "actExport": {
+    "message": "Export List"
+  },
+  "actSettings": {
+    "message": "Settings"
+  },
+  "sectionActive": {
+    "message": "Active Tabs"
+  },
+  "emptyTitle": {
+    "message": "No tabs are always active yet"
+  },
+  "emptyHint": {
+    "message": "Click “Make Always Active” to start"
+  },
+  "tagSiteRule": {
+    "message": "site rule"
+  },
+  "removeTab": {
+    "message": "Remove from always active"
+  },
+  "justNow": {
+    "message": "now"
+  },
+  "toastRefreshed": {
+    "message": "Active tabs refreshed"
+  },
+  "toastNothingRefresh": {
+    "message": "No active tabs to refresh"
+  },
+  "toastMuted": {
+    "message": "Tab audio toggled"
+  },
+  "toastNothingMute": {
+    "message": "No active tabs to mute"
+  },
+  "toastExported": {
+    "message": "Export downloaded"
+  },
+  "errUpdateTab": {
+    "message": "Failed to update tab"
+  },
+  "errSiteRule": {
+    "message": "Failed to update site rule"
+  },
+  "errLoad": {
+    "message": "Failed to load extension data"
+  },
+  "rateAsk": {
+    "message": "Enjoying TabRevive? I'd really appreciate a quick rating :)"
+  },
+  "rateYes": {
+    "message": "Rate it"
+  },
+  "rateNo": {
+    "message": "No thanks"
+  },
+  "errTabNotFound": {
+    "message": "Tab not found"
+  },
+  "errCannotProtect": {
+    "message": "This page can’t be kept active"
+  },
+  "errLimit": {
+    "message": "Limit of $P0$ active tabs reached",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteEnabledTitle": {
+    "message": "Always Active enabled"
+  },
+  "noteDisabledTitle": {
+    "message": "Always Active disabled"
+  },
+  "noteEnabledFor": {
+    "message": "Enabled for: $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteDisabledFor": {
+    "message": "Disabled for: $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteAllOffTitle": {
+    "message": "All tabs turned off"
+  },
+  "noteAllOff": {
+    "message": "Turned off always active for $P0$ tabs",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoneTitle": {
+    "message": "No active tabs"
+  },
+  "noteNone": {
+    "message": "No tabs are currently always active"
+  },
+  "noteInstalledTitle": {
+    "message": "TabRevive installed"
+  },
+  "noteInstalled": {
+    "message": "Click the extension icon to keep a tab active."
+  }
+}

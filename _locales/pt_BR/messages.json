@@ -1,0 +1,205 @@
+{
+  "extName": {
+    "message": "TabRevive: Manter abas ativas"
+  },
+  "extDescription": {
+    "message": "Mantenha as abas que você escolher ativas em segundo plano: os sites não percebem a troca e os timers não desaceleram."
+  },
+  "cmdToggle": {
+    "message": "Ativar ou desativar na aba atual"
+  },
+  "cmdDisableAll": {
+    "message": "Desativar em todas as abas"
+  },
+  "popupTagline": {
+    "message": "Mantenha as abas ativas ao trocar de aba"
+  },
+  "statusNone": {
+    "message": "Nenhuma aba ativa"
+  },
+  "statusOne": {
+    "message": "1 aba ativa"
+  },
+  "statusMany": {
+    "message": "$P0$ abas ativas",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "statProtected": {
+    "message": "Protegidas"
+  },
+  "statOpenTabs": {
+    "message": "Abertas"
+  },
+  "statSites": {
+    "message": "Sites"
+  },
+  "sectionCurrentTab": {
+    "message": "Aba atual"
+  },
+  "labelState": {
+    "message": "Estado"
+  },
+  "stateActive": {
+    "message": "Sempre ativa"
+  },
+  "stateStandby": {
+    "message": "Em espera"
+  },
+  "untitled": {
+    "message": "Sem título"
+  },
+  "loading": {
+    "message": "Carregando…"
+  },
+  "btnEnable": {
+    "message": "Manter sempre ativa"
+  },
+  "btnDisable": {
+    "message": "Parar de manter ativa"
+  },
+  "siteOn": {
+    "message": "Manter $P0$ sempre ativo",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "siteOff": {
+    "message": "Parar de manter $P0$ ativo",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "sectionQuick": {
+    "message": "Ações rápidas"
+  },
+  "actRefresh": {
+    "message": "Recarregar ativas"
+  },
+  "actMute": {
+    "message": "Silenciar todas"
+  },
+  "actExport": {
+    "message": "Exportar lista"
+  },
+  "actSettings": {
+    "message": "Configurações"
+  },
+  "sectionActive": {
+    "message": "Abas ativas"
+  },
+  "emptyTitle": {
+    "message": "Nenhuma aba sempre ativa ainda"
+  },
+  "emptyHint": {
+    "message": "Clique em “Manter sempre ativa” para começar"
+  },
+  "tagSiteRule": {
+    "message": "regra do site"
+  },
+  "removeTab": {
+    "message": "Remover de sempre ativas"
+  },
+  "justNow": {
+    "message": "agora"
+  },
+  "toastRefreshed": {
+    "message": "Abas ativas recarregadas"
+  },
+  "toastNothingRefresh": {
+    "message": "Nenhuma aba ativa para recarregar"
+  },
+  "toastMuted": {
+    "message": "Áudio das abas alternado"
+  },
+  "toastNothingMute": {
+    "message": "Nenhuma aba ativa para silenciar"
+  },
+  "toastExported": {
+    "message": "Exportação baixada"
+  },
+  "errUpdateTab": {
+    "message": "Não foi possível atualizar a aba"
+  },
+  "errSiteRule": {
+    "message": "Não foi possível atualizar a regra do site"
+  },
+  "errLoad": {
+    "message": "Não foi possível carregar os dados"
+  },
+  "rateAsk": {
+    "message": "Curtindo o TabRevive? Eu agradeceria muito uma avaliação :)"
+  },
+  "rateYes": {
+    "message": "Avaliar"
+  },
+  "rateNo": {
+    "message": "Não, obrigado"
+  },
+  "errTabNotFound": {
+    "message": "Aba não encontrada"
+  },
+  "errCannotProtect": {
+    "message": "Esta página não pode ser mantida ativa"
+  },
+  "errLimit": {
+    "message": "Limite de $P0$ abas ativas atingido",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteEnabledTitle": {
+    "message": "Sempre ativa: ativado"
+  },
+  "noteDisabledTitle": {
+    "message": "Sempre ativa: desativado"
+  },
+  "noteEnabledFor": {
+    "message": "Ativado para: $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteDisabledFor": {
+    "message": "Desativado para: $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteAllOffTitle": {
+    "message": "Todas as abas desativadas"
+  },
+  "noteAllOff": {
+    "message": "Desativado em $P0$ abas",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoneTitle": {
+    "message": "Nenhuma aba ativa"
+  },
+  "noteNone": {
+    "message": "Nenhuma aba está sempre ativa no momento"
+  },
+  "noteInstalledTitle": {
+    "message": "TabRevive instalado"
+  },
+  "noteInstalled": {
+    "message": "Clique no ícone da extensão para manter uma aba ativa."
+  }
+}

@@ -1,0 +1,205 @@
+{
+  "extName": {
+    "message": "TabRevive: держать вкладки активными"
+  },
+  "extDescription": {
+    "message": "Держит выбранные вкладки активными в фоне: сайты не видят переключения, таймеры не замедляются, вкладки не выгружаются."
+  },
+  "cmdToggle": {
+    "message": "Переключить «всегда активна» для текущей вкладки"
+  },
+  "cmdDisableAll": {
+    "message": "Выключить «всегда активна» для всех вкладок"
+  },
+  "popupTagline": {
+    "message": "Вкладки остаются активными при переключении"
+  },
+  "statusNone": {
+    "message": "Нет активных вкладок"
+  },
+  "statusOne": {
+    "message": "Активна 1 вкладка"
+  },
+  "statusMany": {
+    "message": "Активных вкладок: $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "statProtected": {
+    "message": "Защищено"
+  },
+  "statOpenTabs": {
+    "message": "Открыто"
+  },
+  "statSites": {
+    "message": "Сайты"
+  },
+  "sectionCurrentTab": {
+    "message": "Текущая вкладка"
+  },
+  "labelState": {
+    "message": "Состояние"
+  },
+  "stateActive": {
+    "message": "Всегда активна"
+  },
+  "stateStandby": {
+    "message": "Ожидание"
+  },
+  "untitled": {
+    "message": "Без названия"
+  },
+  "loading": {
+    "message": "Загрузка…"
+  },
+  "btnEnable": {
+    "message": "Сделать всегда активной"
+  },
+  "btnDisable": {
+    "message": "Отключить «всегда активна»"
+  },
+  "siteOn": {
+    "message": "Всегда держать $P0$ активным",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "siteOff": {
+    "message": "Не держать $P0$ активным",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "sectionQuick": {
+    "message": "Быстрые действия"
+  },
+  "actRefresh": {
+    "message": "Обновить активные"
+  },
+  "actMute": {
+    "message": "Выключить звук"
+  },
+  "actExport": {
+    "message": "Экспорт списка"
+  },
+  "actSettings": {
+    "message": "Настройки"
+  },
+  "sectionActive": {
+    "message": "Активные вкладки"
+  },
+  "emptyTitle": {
+    "message": "Пока нет всегда активных вкладок"
+  },
+  "emptyHint": {
+    "message": "Нажмите «Сделать всегда активной», чтобы начать"
+  },
+  "tagSiteRule": {
+    "message": "правило сайта"
+  },
+  "removeTab": {
+    "message": "Убрать из всегда активных"
+  },
+  "justNow": {
+    "message": "сейчас"
+  },
+  "toastRefreshed": {
+    "message": "Активные вкладки обновлены"
+  },
+  "toastNothingRefresh": {
+    "message": "Нет активных вкладок для обновления"
+  },
+  "toastMuted": {
+    "message": "Звук вкладок переключён"
+  },
+  "toastNothingMute": {
+    "message": "Нет активных вкладок для отключения звука"
+  },
+  "toastExported": {
+    "message": "Экспорт загружен"
+  },
+  "errUpdateTab": {
+    "message": "Не удалось обновить вкладку"
+  },
+  "errSiteRule": {
+    "message": "Не удалось обновить правило сайта"
+  },
+  "errLoad": {
+    "message": "Не удалось загрузить данные"
+  },
+  "rateAsk": {
+    "message": "Нравится TabRevive? Буду очень благодарен за оценку :)"
+  },
+  "rateYes": {
+    "message": "Оценить"
+  },
+  "rateNo": {
+    "message": "Нет, спасибо"
+  },
+  "errTabNotFound": {
+    "message": "Вкладка не найдена"
+  },
+  "errCannotProtect": {
+    "message": "Эту страницу нельзя держать активной"
+  },
+  "errLimit": {
+    "message": "Достигнут лимит активных вкладок: $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteEnabledTitle": {
+    "message": "«Всегда активна» включено"
+  },
+  "noteDisabledTitle": {
+    "message": "«Всегда активна» выключено"
+  },
+  "noteEnabledFor": {
+    "message": "Включено для: $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteDisabledFor": {
+    "message": "Выключено для: $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteAllOffTitle": {
+    "message": "Все вкладки выключены"
+  },
+  "noteAllOff": {
+    "message": "Выключено для вкладок: $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoneTitle": {
+    "message": "Нет активных вкладок"
+  },
+  "noteNone": {
+    "message": "Сейчас нет всегда активных вкладок"
+  },
+  "noteInstalledTitle": {
+    "message": "TabRevive установлен"
+  },
+  "noteInstalled": {
+    "message": "Нажмите на значок расширения, чтобы держать вкладку активной."
+  }
+}

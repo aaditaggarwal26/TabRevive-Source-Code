@@ -1,0 +1,205 @@
+{
+  "extName": {
+    "message": "TabRevive: Mantener pestañas activas"
+  },
+  "extDescription": {
+    "message": "Mantén activas en segundo plano las pestañas que elijas: los sitios no notan el cambio, los temporizadores no se frenan."
+  },
+  "cmdToggle": {
+    "message": "Activar o desactivar en la pestaña actual"
+  },
+  "cmdDisableAll": {
+    "message": "Desactivar en todas las pestañas"
+  },
+  "popupTagline": {
+    "message": "Mantén las pestañas activas al cambiar de pestaña"
+  },
+  "statusNone": {
+    "message": "Ninguna pestaña activa"
+  },
+  "statusOne": {
+    "message": "1 pestaña activa"
+  },
+  "statusMany": {
+    "message": "$P0$ pestañas activas",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "statProtected": {
+    "message": "Protegidas"
+  },
+  "statOpenTabs": {
+    "message": "Abiertas"
+  },
+  "statSites": {
+    "message": "Sitios"
+  },
+  "sectionCurrentTab": {
+    "message": "Pestaña actual"
+  },
+  "labelState": {
+    "message": "Estado"
+  },
+  "stateActive": {
+    "message": "Siempre activa"
+  },
+  "stateStandby": {
+    "message": "En espera"
+  },
+  "untitled": {
+    "message": "Sin título"
+  },
+  "loading": {
+    "message": "Cargando…"
+  },
+  "btnEnable": {
+    "message": "Mantener siempre activa"
+  },
+  "btnDisable": {
+    "message": "Dejar de mantener activa"
+  },
+  "siteOn": {
+    "message": "Mantener siempre activo $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "siteOff": {
+    "message": "Dejar de mantener activo $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "sectionQuick": {
+    "message": "Acciones rápidas"
+  },
+  "actRefresh": {
+    "message": "Recargar activas"
+  },
+  "actMute": {
+    "message": "Silenciar todas"
+  },
+  "actExport": {
+    "message": "Exportar lista"
+  },
+  "actSettings": {
+    "message": "Ajustes"
+  },
+  "sectionActive": {
+    "message": "Pestañas activas"
+  },
+  "emptyTitle": {
+    "message": "Aún no hay pestañas siempre activas"
+  },
+  "emptyHint": {
+    "message": "Pulsa «Mantener siempre activa» para empezar"
+  },
+  "tagSiteRule": {
+    "message": "regla del sitio"
+  },
+  "removeTab": {
+    "message": "Quitar de siempre activas"
+  },
+  "justNow": {
+    "message": "ahora"
+  },
+  "toastRefreshed": {
+    "message": "Pestañas activas recargadas"
+  },
+  "toastNothingRefresh": {
+    "message": "No hay pestañas activas que recargar"
+  },
+  "toastMuted": {
+    "message": "Audio de las pestañas cambiado"
+  },
+  "toastNothingMute": {
+    "message": "No hay pestañas activas que silenciar"
+  },
+  "toastExported": {
+    "message": "Exportación descargada"
+  },
+  "errUpdateTab": {
+    "message": "No se pudo actualizar la pestaña"
+  },
+  "errSiteRule": {
+    "message": "No se pudo actualizar la regla del sitio"
+  },
+  "errLoad": {
+    "message": "No se pudieron cargar los datos"
+  },
+  "rateAsk": {
+    "message": "¿Te gusta TabRevive? Me ayudaría mucho que lo valoraras :)"
+  },
+  "rateYes": {
+    "message": "Valorar"
+  },
+  "rateNo": {
+    "message": "No, gracias"
+  },
+  "errTabNotFound": {
+    "message": "No se encontró la pestaña"
+  },
+  "errCannotProtect": {
+    "message": "Esta página no se puede mantener activa"
+  },
+  "errLimit": {
+    "message": "Límite de $P0$ pestañas activas alcanzado",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteEnabledTitle": {
+    "message": "Siempre activa: activado"
+  },
+  "noteDisabledTitle": {
+    "message": "Siempre activa: desactivado"
+  },
+  "noteEnabledFor": {
+    "message": "Activado para: $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteDisabledFor": {
+    "message": "Desactivado para: $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteAllOffTitle": {
+    "message": "Todas las pestañas desactivadas"
+  },
+  "noteAllOff": {
+    "message": "Se desactivó en $P0$ pestañas",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoneTitle": {
+    "message": "Ninguna pestaña activa"
+  },
+  "noteNone": {
+    "message": "Ninguna pestaña está siempre activa"
+  },
+  "noteInstalledTitle": {
+    "message": "TabRevive instalado"
+  },
+  "noteInstalled": {
+    "message": "Haz clic en el icono de la extensión para mantener una pestaña activa."
+  }
+}

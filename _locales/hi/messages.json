@@ -1,0 +1,205 @@
+{
+  "extName": {
+    "message": "TabRevive: टैब हमेशा सक्रिय रखें"
+  },
+  "extDescription": {
+    "message": "चुने हुए टैब बैकग्राउंड में चलते रहते हैं: साइटों को टैब बदलने का पता नहीं चलता, टाइमर धीमे नहीं होते, टैब बंद नहीं होते।"
+  },
+  "cmdToggle": {
+    "message": "मौजूदा टैब के लिए हमेशा सक्रिय चालू/बंद करें"
+  },
+  "cmdDisableAll": {
+    "message": "सभी टैब के लिए हमेशा सक्रिय बंद करें"
+  },
+  "popupTagline": {
+    "message": "टैब बदलने पर भी टैब सक्रिय रहते हैं"
+  },
+  "statusNone": {
+    "message": "कोई सक्रिय टैब नहीं"
+  },
+  "statusOne": {
+    "message": "1 टैब सक्रिय"
+  },
+  "statusMany": {
+    "message": "$P0$ टैब सक्रिय",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "statProtected": {
+    "message": "सुरक्षित"
+  },
+  "statOpenTabs": {
+    "message": "खुले टैब"
+  },
+  "statSites": {
+    "message": "साइटें"
+  },
+  "sectionCurrentTab": {
+    "message": "मौजूदा टैब"
+  },
+  "labelState": {
+    "message": "स्थिति"
+  },
+  "stateActive": {
+    "message": "हमेशा सक्रिय"
+  },
+  "stateStandby": {
+    "message": "स्टैंडबाय"
+  },
+  "untitled": {
+    "message": "बिना शीर्षक"
+  },
+  "loading": {
+    "message": "लोड हो रहा है…"
+  },
+  "btnEnable": {
+    "message": "हमेशा सक्रिय रखें"
+  },
+  "btnDisable": {
+    "message": "हमेशा सक्रिय बंद करें"
+  },
+  "siteOn": {
+    "message": "$P0$ को हमेशा सक्रिय रखें",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "siteOff": {
+    "message": "$P0$ को सक्रिय रखना बंद करें",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "sectionQuick": {
+    "message": "तुरंत करें"
+  },
+  "actRefresh": {
+    "message": "सक्रिय रीफ़्रेश करें"
+  },
+  "actMute": {
+    "message": "सभी म्यूट करें"
+  },
+  "actExport": {
+    "message": "सूची एक्सपोर्ट करें"
+  },
+  "actSettings": {
+    "message": "सेटिंग"
+  },
+  "sectionActive": {
+    "message": "सक्रिय टैब"
+  },
+  "emptyTitle": {
+    "message": "अभी कोई टैब हमेशा सक्रिय नहीं है"
+  },
+  "emptyHint": {
+    "message": "शुरू करने के लिए “हमेशा सक्रिय रखें” पर क्लिक करें"
+  },
+  "tagSiteRule": {
+    "message": "साइट नियम"
+  },
+  "removeTab": {
+    "message": "हमेशा सक्रिय से हटाएँ"
+  },
+  "justNow": {
+    "message": "अभी"
+  },
+  "toastRefreshed": {
+    "message": "सक्रिय टैब रीफ़्रेश हो गए"
+  },
+  "toastNothingRefresh": {
+    "message": "रीफ़्रेश करने के लिए कोई सक्रिय टैब नहीं"
+  },
+  "toastMuted": {
+    "message": "टैब की आवाज़ बदली गई"
+  },
+  "toastNothingMute": {
+    "message": "म्यूट करने के लिए कोई सक्रिय टैब नहीं"
+  },
+  "toastExported": {
+    "message": "एक्सपोर्ट डाउनलोड हो गया"
+  },
+  "errUpdateTab": {
+    "message": "टैब अपडेट नहीं हो सका"
+  },
+  "errSiteRule": {
+    "message": "साइट नियम अपडेट नहीं हो सका"
+  },
+  "errLoad": {
+    "message": "डेटा लोड नहीं हो सका"
+  },
+  "rateAsk": {
+    "message": "TabRevive पसंद आ रहा है? एक रेटिंग देंगे तो मुझे बहुत खुशी होगी :)"
+  },
+  "rateYes": {
+    "message": "रेटिंग दें"
+  },
+  "rateNo": {
+    "message": "नहीं, धन्यवाद"
+  },
+  "errTabNotFound": {
+    "message": "टैब नहीं मिला"
+  },
+  "errCannotProtect": {
+    "message": "यह पेज सक्रिय नहीं रखा जा सकता"
+  },
+  "errLimit": {
+    "message": "$P0$ सक्रिय टैब की सीमा पूरी हो गई",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteEnabledTitle": {
+    "message": "हमेशा सक्रिय चालू"
+  },
+  "noteDisabledTitle": {
+    "message": "हमेशा सक्रिय बंद"
+  },
+  "noteEnabledFor": {
+    "message": "चालू किया: $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteDisabledFor": {
+    "message": "बंद किया: $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteAllOffTitle": {
+    "message": "सभी टैब बंद किए गए"
+  },
+  "noteAllOff": {
+    "message": "$P0$ टैब के लिए हमेशा सक्रिय बंद किया",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoneTitle": {
+    "message": "कोई सक्रिय टैब नहीं"
+  },
+  "noteNone": {
+    "message": "अभी कोई टैब हमेशा सक्रिय नहीं है"
+  },
+  "noteInstalledTitle": {
+    "message": "TabRevive इंस्टॉल हो गया"
+  },
+  "noteInstalled": {
+    "message": "किसी टैब को सक्रिय रखने के लिए एक्सटेंशन आइकन पर क्लिक करें।"
+  }
+}

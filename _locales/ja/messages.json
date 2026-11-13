@@ -1,0 +1,205 @@
+{
+  "extName": {
+    "message": "TabRevive: タブを常にアクティブに保つ"
+  },
+  "extDescription": {
+    "message": "選んだタブをバックグラウンドでも動かし続けます。タブを切り替えてもサイトに気づかれず、タイマーも遅くならず、タブが破棄されません。"
+  },
+  "cmdToggle": {
+    "message": "現在のタブの常時アクティブを切り替える"
+  },
+  "cmdDisableAll": {
+    "message": "すべてのタブの常時アクティブをオフにする"
+  },
+  "popupTagline": {
+    "message": "タブを切り替えてもアクティブなまま"
+  },
+  "statusNone": {
+    "message": "アクティブなタブはありません"
+  },
+  "statusOne": {
+    "message": "1 個のタブがアクティブ"
+  },
+  "statusMany": {
+    "message": "$P0$ 個のタブがアクティブ",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "statProtected": {
+    "message": "保護中"
+  },
+  "statOpenTabs": {
+    "message": "開いているタブ"
+  },
+  "statSites": {
+    "message": "サイト"
+  },
+  "sectionCurrentTab": {
+    "message": "現在のタブ"
+  },
+  "labelState": {
+    "message": "状態"
+  },
+  "stateActive": {
+    "message": "常時アクティブ"
+  },
+  "stateStandby": {
+    "message": "待機中"
+  },
+  "untitled": {
+    "message": "無題"
+  },
+  "loading": {
+    "message": "読み込み中…"
+  },
+  "btnEnable": {
+    "message": "常にアクティブにする"
+  },
+  "btnDisable": {
+    "message": "常時アクティブを解除"
+  },
+  "siteOn": {
+    "message": "$P0$ を常にアクティブにする",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "siteOff": {
+    "message": "$P0$ の常時アクティブを解除",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "sectionQuick": {
+    "message": "クイック操作"
+  },
+  "actRefresh": {
+    "message": "アクティブを再読み込み"
+  },
+  "actMute": {
+    "message": "すべてミュート"
+  },
+  "actExport": {
+    "message": "リストを書き出す"
+  },
+  "actSettings": {
+    "message": "設定"
+  },
+  "sectionActive": {
+    "message": "アクティブなタブ"
+  },
+  "emptyTitle": {
+    "message": "常時アクティブのタブはまだありません"
+  },
+  "emptyHint": {
+    "message": "「常にアクティブにする」をクリックして開始"
+  },
+  "tagSiteRule": {
+    "message": "サイトルール"
+  },
+  "removeTab": {
+    "message": "常時アクティブから外す"
+  },
+  "justNow": {
+    "message": "今"
+  },
+  "toastRefreshed": {
+    "message": "アクティブなタブを再読み込みしました"
+  },
+  "toastNothingRefresh": {
+    "message": "再読み込みするタブがありません"
+  },
+  "toastMuted": {
+    "message": "タブの音声を切り替えました"
+  },
+  "toastNothingMute": {
+    "message": "ミュートするタブがありません"
+  },
+  "toastExported": {
+    "message": "書き出しをダウンロードしました"
+  },
+  "errUpdateTab": {
+    "message": "タブを更新できませんでした"
+  },
+  "errSiteRule": {
+    "message": "サイトルールを更新できませんでした"
+  },
+  "errLoad": {
+    "message": "データを読み込めませんでした"
+  },
+  "rateAsk": {
+    "message": "TabRevive を気に入っていただけたら、評価していただけるととても嬉しいです :)"
+  },
+  "rateYes": {
+    "message": "評価する"
+  },
+  "rateNo": {
+    "message": "今はしない"
+  },
+  "errTabNotFound": {
+    "message": "タブが見つかりません"
+  },
+  "errCannotProtect": {
+    "message": "このページはアクティブに保てません"
+  },
+  "errLimit": {
+    "message": "アクティブなタブの上限（$P0$ 個）に達しました",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteEnabledTitle": {
+    "message": "常時アクティブをオンにしました"
+  },
+  "noteDisabledTitle": {
+    "message": "常時アクティブをオフにしました"
+  },
+  "noteEnabledFor": {
+    "message": "オン: $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteDisabledFor": {
+    "message": "オフ: $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteAllOffTitle": {
+    "message": "すべてのタブをオフにしました"
+  },
+  "noteAllOff": {
+    "message": "$P0$ 個のタブの常時アクティブをオフにしました",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoneTitle": {
+    "message": "アクティブなタブはありません"
+  },
+  "noteNone": {
+    "message": "常時アクティブのタブはありません"
+  },
+  "noteInstalledTitle": {
+    "message": "TabRevive をインストールしました"
+  },
+  "noteInstalled": {
+    "message": "拡張機能のアイコンをクリックしてタブをアクティブに保ちます。"
+  }
+}

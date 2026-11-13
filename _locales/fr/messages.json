@@ -1,0 +1,205 @@
+{
+  "extName": {
+    "message": "TabRevive : garder les onglets actifs"
+  },
+  "extDescription": {
+    "message": "Garde les onglets choisis actifs en arrière-plan : les sites ne voient pas le changement d'onglet, les minuteurs restent rapides."
+  },
+  "cmdToggle": {
+    "message": "Activer ou désactiver pour l'onglet actuel"
+  },
+  "cmdDisableAll": {
+    "message": "Désactiver pour tous les onglets"
+  },
+  "popupTagline": {
+    "message": "Garde les onglets actifs quand vous changez d'onglet"
+  },
+  "statusNone": {
+    "message": "Aucun onglet actif"
+  },
+  "statusOne": {
+    "message": "1 onglet actif"
+  },
+  "statusMany": {
+    "message": "$P0$ onglets actifs",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "statProtected": {
+    "message": "Protégés"
+  },
+  "statOpenTabs": {
+    "message": "Ouverts"
+  },
+  "statSites": {
+    "message": "Sites"
+  },
+  "sectionCurrentTab": {
+    "message": "Onglet actuel"
+  },
+  "labelState": {
+    "message": "État"
+  },
+  "stateActive": {
+    "message": "Toujours actif"
+  },
+  "stateStandby": {
+    "message": "En attente"
+  },
+  "untitled": {
+    "message": "Sans titre"
+  },
+  "loading": {
+    "message": "Chargement…"
+  },
+  "btnEnable": {
+    "message": "Garder toujours actif"
+  },
+  "btnDisable": {
+    "message": "Ne plus garder actif"
+  },
+  "siteOn": {
+    "message": "Toujours garder $P0$ actif",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "siteOff": {
+    "message": "Ne plus garder $P0$ actif",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "sectionQuick": {
+    "message": "Actions rapides"
+  },
+  "actRefresh": {
+    "message": "Recharger les actifs"
+  },
+  "actMute": {
+    "message": "Tout couper"
+  },
+  "actExport": {
+    "message": "Exporter la liste"
+  },
+  "actSettings": {
+    "message": "Paramètres"
+  },
+  "sectionActive": {
+    "message": "Onglets actifs"
+  },
+  "emptyTitle": {
+    "message": "Aucun onglet n'est encore toujours actif"
+  },
+  "emptyHint": {
+    "message": "Cliquez sur « Garder toujours actif » pour commencer"
+  },
+  "tagSiteRule": {
+    "message": "règle du site"
+  },
+  "removeTab": {
+    "message": "Retirer des toujours actifs"
+  },
+  "justNow": {
+    "message": "maintenant"
+  },
+  "toastRefreshed": {
+    "message": "Onglets actifs rechargés"
+  },
+  "toastNothingRefresh": {
+    "message": "Aucun onglet actif à recharger"
+  },
+  "toastMuted": {
+    "message": "Son des onglets basculé"
+  },
+  "toastNothingMute": {
+    "message": "Aucun onglet actif à couper"
+  },
+  "toastExported": {
+    "message": "Export téléchargé"
+  },
+  "errUpdateTab": {
+    "message": "Impossible de mettre à jour l'onglet"
+  },
+  "errSiteRule": {
+    "message": "Impossible de mettre à jour la règle du site"
+  },
+  "errLoad": {
+    "message": "Impossible de charger les données"
+  },
+  "rateAsk": {
+    "message": "Vous aimez TabRevive ? Une petite note me ferait très plaisir :)"
+  },
+  "rateYes": {
+    "message": "Donner une note"
+  },
+  "rateNo": {
+    "message": "Non merci"
+  },
+  "errTabNotFound": {
+    "message": "Onglet introuvable"
+  },
+  "errCannotProtect": {
+    "message": "Cette page ne peut pas être gardée active"
+  },
+  "errLimit": {
+    "message": "Limite de $P0$ onglets actifs atteinte",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteEnabledTitle": {
+    "message": "Toujours actif : activé"
+  },
+  "noteDisabledTitle": {
+    "message": "Toujours actif : désactivé"
+  },
+  "noteEnabledFor": {
+    "message": "Activé pour : $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteDisabledFor": {
+    "message": "Désactivé pour : $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteAllOffTitle": {
+    "message": "Tous les onglets désactivés"
+  },
+  "noteAllOff": {
+    "message": "Désactivé pour $P0$ onglets",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoneTitle": {
+    "message": "Aucun onglet actif"
+  },
+  "noteNone": {
+    "message": "Aucun onglet n'est actuellement toujours actif"
+  },
+  "noteInstalledTitle": {
+    "message": "TabRevive installé"
+  },
+  "noteInstalled": {
+    "message": "Cliquez sur l'icône de l'extension pour garder un onglet actif."
+  }
+}

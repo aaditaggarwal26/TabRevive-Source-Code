@@ -1,0 +1,205 @@
+{
+  "extName": {
+    "message": "TabRevive：让标签页始终保持活跃"
+  },
+  "extDescription": {
+    "message": "让你选择的标签页在后台持续运行：网站察觉不到你切换了标签页，计时器不会变慢，标签页也不会被丢弃。"
+  },
+  "cmdToggle": {
+    "message": "为当前标签页开启或关闭始终活跃"
+  },
+  "cmdDisableAll": {
+    "message": "关闭所有标签页的始终活跃"
+  },
+  "popupTagline": {
+    "message": "切换标签页时保持标签页活跃"
+  },
+  "statusNone": {
+    "message": "没有活跃的标签页"
+  },
+  "statusOne": {
+    "message": "1 个标签页活跃"
+  },
+  "statusMany": {
+    "message": "$P0$ 个标签页活跃",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "statProtected": {
+    "message": "已保护"
+  },
+  "statOpenTabs": {
+    "message": "已打开"
+  },
+  "statSites": {
+    "message": "网站"
+  },
+  "sectionCurrentTab": {
+    "message": "当前标签页"
+  },
+  "labelState": {
+    "message": "状态"
+  },
+  "stateActive": {
+    "message": "始终活跃"
+  },
+  "stateStandby": {
+    "message": "待机"
+  },
+  "untitled": {
+    "message": "无标题"
+  },
+  "loading": {
+    "message": "正在加载…"
+  },
+  "btnEnable": {
+    "message": "设为始终活跃"
+  },
+  "btnDisable": {
+    "message": "取消始终活跃"
+  },
+  "siteOn": {
+    "message": "始终保持 $P0$ 活跃",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "siteOff": {
+    "message": "不再保持 $P0$ 活跃",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "sectionQuick": {
+    "message": "快捷操作"
+  },
+  "actRefresh": {
+    "message": "刷新活跃标签页"
+  },
+  "actMute": {
+    "message": "全部静音"
+  },
+  "actExport": {
+    "message": "导出列表"
+  },
+  "actSettings": {
+    "message": "设置"
+  },
+  "sectionActive": {
+    "message": "活跃标签页"
+  },
+  "emptyTitle": {
+    "message": "还没有始终活跃的标签页"
+  },
+  "emptyHint": {
+    "message": "点击“设为始终活跃”开始"
+  },
+  "tagSiteRule": {
+    "message": "网站规则"
+  },
+  "removeTab": {
+    "message": "从始终活跃中移除"
+  },
+  "justNow": {
+    "message": "刚刚"
+  },
+  "toastRefreshed": {
+    "message": "已刷新活跃标签页"
+  },
+  "toastNothingRefresh": {
+    "message": "没有可刷新的活跃标签页"
+  },
+  "toastMuted": {
+    "message": "已切换标签页声音"
+  },
+  "toastNothingMute": {
+    "message": "没有可静音的活跃标签页"
+  },
+  "toastExported": {
+    "message": "已下载导出文件"
+  },
+  "errUpdateTab": {
+    "message": "无法更新标签页"
+  },
+  "errSiteRule": {
+    "message": "无法更新网站规则"
+  },
+  "errLoad": {
+    "message": "无法加载数据"
+  },
+  "rateAsk": {
+    "message": "喜欢 TabRevive 吗？如果能给个评分，我会非常感激 :)"
+  },
+  "rateYes": {
+    "message": "去评分"
+  },
+  "rateNo": {
+    "message": "不用了"
+  },
+  "errTabNotFound": {
+    "message": "找不到标签页"
+  },
+  "errCannotProtect": {
+    "message": "无法让此页面保持活跃"
+  },
+  "errLimit": {
+    "message": "已达到 $P0$ 个活跃标签页的上限",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteEnabledTitle": {
+    "message": "已开启始终活跃"
+  },
+  "noteDisabledTitle": {
+    "message": "已关闭始终活跃"
+  },
+  "noteEnabledFor": {
+    "message": "已开启：$P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteDisabledFor": {
+    "message": "已关闭：$P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteAllOffTitle": {
+    "message": "已关闭所有标签页"
+  },
+  "noteAllOff": {
+    "message": "已为 $P0$ 个标签页关闭始终活跃",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoneTitle": {
+    "message": "没有活跃的标签页"
+  },
+  "noteNone": {
+    "message": "当前没有始终活跃的标签页"
+  },
+  "noteInstalledTitle": {
+    "message": "TabRevive 已安装"
+  },
+  "noteInstalled": {
+    "message": "点击扩展程序图标即可让标签页保持活跃。"
+  }
+}

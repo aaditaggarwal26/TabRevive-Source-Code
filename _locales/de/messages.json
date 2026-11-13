@@ -1,0 +1,205 @@
+{
+  "extName": {
+    "message": "TabRevive: Tabs aktiv halten"
+  },
+  "extDescription": {
+    "message": "Hält ausgewählte Tabs im Hintergrund aktiv: Websites merken den Tab-Wechsel nicht, Timer laufen weiter, nichts wird entladen."
+  },
+  "cmdToggle": {
+    "message": "Dauerhaft aktiv für den aktuellen Tab umschalten"
+  },
+  "cmdDisableAll": {
+    "message": "Dauerhaft aktiv für alle Tabs ausschalten"
+  },
+  "popupTagline": {
+    "message": "Hält Tabs beim Wechseln aktiv"
+  },
+  "statusNone": {
+    "message": "Keine aktiven Tabs"
+  },
+  "statusOne": {
+    "message": "1 Tab aktiv"
+  },
+  "statusMany": {
+    "message": "$P0$ Tabs aktiv",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "statProtected": {
+    "message": "Geschützt"
+  },
+  "statOpenTabs": {
+    "message": "Offene Tabs"
+  },
+  "statSites": {
+    "message": "Websites"
+  },
+  "sectionCurrentTab": {
+    "message": "Aktueller Tab"
+  },
+  "labelState": {
+    "message": "Status"
+  },
+  "stateActive": {
+    "message": "Dauerhaft aktiv"
+  },
+  "stateStandby": {
+    "message": "Bereit"
+  },
+  "untitled": {
+    "message": "Ohne Titel"
+  },
+  "loading": {
+    "message": "Wird geladen…"
+  },
+  "btnEnable": {
+    "message": "Dauerhaft aktiv halten"
+  },
+  "btnDisable": {
+    "message": "Nicht mehr aktiv halten"
+  },
+  "siteOn": {
+    "message": "$P0$ immer aktiv halten",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "siteOff": {
+    "message": "$P0$ nicht mehr aktiv halten",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "sectionQuick": {
+    "message": "Schnellaktionen"
+  },
+  "actRefresh": {
+    "message": "Aktive neu laden"
+  },
+  "actMute": {
+    "message": "Alle stummschalten"
+  },
+  "actExport": {
+    "message": "Liste exportieren"
+  },
+  "actSettings": {
+    "message": "Einstellungen"
+  },
+  "sectionActive": {
+    "message": "Aktive Tabs"
+  },
+  "emptyTitle": {
+    "message": "Noch keine dauerhaft aktiven Tabs"
+  },
+  "emptyHint": {
+    "message": "Klicke auf „Dauerhaft aktiv halten“, um zu starten"
+  },
+  "tagSiteRule": {
+    "message": "Website-Regel"
+  },
+  "removeTab": {
+    "message": "Aus dauerhaft aktiv entfernen"
+  },
+  "justNow": {
+    "message": "jetzt"
+  },
+  "toastRefreshed": {
+    "message": "Aktive Tabs neu geladen"
+  },
+  "toastNothingRefresh": {
+    "message": "Keine aktiven Tabs zum Neuladen"
+  },
+  "toastMuted": {
+    "message": "Tab-Ton umgeschaltet"
+  },
+  "toastNothingMute": {
+    "message": "Keine aktiven Tabs zum Stummschalten"
+  },
+  "toastExported": {
+    "message": "Export heruntergeladen"
+  },
+  "errUpdateTab": {
+    "message": "Tab konnte nicht aktualisiert werden"
+  },
+  "errSiteRule": {
+    "message": "Website-Regel konnte nicht aktualisiert werden"
+  },
+  "errLoad": {
+    "message": "Daten konnten nicht geladen werden"
+  },
+  "rateAsk": {
+    "message": "Gefällt dir TabRevive? Über eine kurze Bewertung würde ich mich sehr freuen :)"
+  },
+  "rateYes": {
+    "message": "Bewerten"
+  },
+  "rateNo": {
+    "message": "Nein, danke"
+  },
+  "errTabNotFound": {
+    "message": "Tab nicht gefunden"
+  },
+  "errCannotProtect": {
+    "message": "Diese Seite kann nicht aktiv gehalten werden"
+  },
+  "errLimit": {
+    "message": "Limit von $P0$ aktiven Tabs erreicht",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteEnabledTitle": {
+    "message": "Dauerhaft aktiv eingeschaltet"
+  },
+  "noteDisabledTitle": {
+    "message": "Dauerhaft aktiv ausgeschaltet"
+  },
+  "noteEnabledFor": {
+    "message": "Eingeschaltet für: $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteDisabledFor": {
+    "message": "Ausgeschaltet für: $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteAllOffTitle": {
+    "message": "Alle Tabs ausgeschaltet"
+  },
+  "noteAllOff": {
+    "message": "Für $P0$ Tabs ausgeschaltet",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoneTitle": {
+    "message": "Keine aktiven Tabs"
+  },
+  "noteNone": {
+    "message": "Derzeit sind keine Tabs dauerhaft aktiv"
+  },
+  "noteInstalledTitle": {
+    "message": "TabRevive installiert"
+  },
+  "noteInstalled": {
+    "message": "Klicke auf das Erweiterungssymbol, um einen Tab aktiv zu halten."
+  }
+}

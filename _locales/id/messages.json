@@ -1,0 +1,205 @@
+{
+  "extName": {
+    "message": "TabRevive: Jaga Tab Tetap Aktif"
+  },
+  "extDescription": {
+    "message": "Jaga tab pilihan tetap berjalan di latar belakang: situs tidak tahu Anda pindah tab, timer tetap cepat, tab tidak dibuang."
+  },
+  "cmdToggle": {
+    "message": "Aktifkan atau matikan untuk tab saat ini"
+  },
+  "cmdDisableAll": {
+    "message": "Matikan untuk semua tab"
+  },
+  "popupTagline": {
+    "message": "Tab tetap aktif saat Anda pindah tab"
+  },
+  "statusNone": {
+    "message": "Tidak ada tab aktif"
+  },
+  "statusOne": {
+    "message": "1 tab aktif"
+  },
+  "statusMany": {
+    "message": "$P0$ tab aktif",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "statProtected": {
+    "message": "Dilindungi"
+  },
+  "statOpenTabs": {
+    "message": "Tab terbuka"
+  },
+  "statSites": {
+    "message": "Situs"
+  },
+  "sectionCurrentTab": {
+    "message": "Tab saat ini"
+  },
+  "labelState": {
+    "message": "Status"
+  },
+  "stateActive": {
+    "message": "Selalu aktif"
+  },
+  "stateStandby": {
+    "message": "Siaga"
+  },
+  "untitled": {
+    "message": "Tanpa judul"
+  },
+  "loading": {
+    "message": "Memuat…"
+  },
+  "btnEnable": {
+    "message": "Jadikan selalu aktif"
+  },
+  "btnDisable": {
+    "message": "Matikan selalu aktif"
+  },
+  "siteOn": {
+    "message": "Selalu jaga $P0$ tetap aktif",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "siteOff": {
+    "message": "Berhenti menjaga $P0$ tetap aktif",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "sectionQuick": {
+    "message": "Aksi cepat"
+  },
+  "actRefresh": {
+    "message": "Muat ulang aktif"
+  },
+  "actMute": {
+    "message": "Bisukan semua"
+  },
+  "actExport": {
+    "message": "Ekspor daftar"
+  },
+  "actSettings": {
+    "message": "Pengaturan"
+  },
+  "sectionActive": {
+    "message": "Tab aktif"
+  },
+  "emptyTitle": {
+    "message": "Belum ada tab yang selalu aktif"
+  },
+  "emptyHint": {
+    "message": "Klik “Jadikan selalu aktif” untuk mulai"
+  },
+  "tagSiteRule": {
+    "message": "aturan situs"
+  },
+  "removeTab": {
+    "message": "Hapus dari selalu aktif"
+  },
+  "justNow": {
+    "message": "baru saja"
+  },
+  "toastRefreshed": {
+    "message": "Tab aktif dimuat ulang"
+  },
+  "toastNothingRefresh": {
+    "message": "Tidak ada tab aktif untuk dimuat ulang"
+  },
+  "toastMuted": {
+    "message": "Suara tab diubah"
+  },
+  "toastNothingMute": {
+    "message": "Tidak ada tab aktif untuk dibisukan"
+  },
+  "toastExported": {
+    "message": "Ekspor diunduh"
+  },
+  "errUpdateTab": {
+    "message": "Gagal memperbarui tab"
+  },
+  "errSiteRule": {
+    "message": "Gagal memperbarui aturan situs"
+  },
+  "errLoad": {
+    "message": "Gagal memuat data"
+  },
+  "rateAsk": {
+    "message": "Suka TabRevive? Saya akan sangat senang kalau Anda memberi nilai :)"
+  },
+  "rateYes": {
+    "message": "Beri nilai"
+  },
+  "rateNo": {
+    "message": "Tidak, terima kasih"
+  },
+  "errTabNotFound": {
+    "message": "Tab tidak ditemukan"
+  },
+  "errCannotProtect": {
+    "message": "Halaman ini tidak bisa dijaga tetap aktif"
+  },
+  "errLimit": {
+    "message": "Batas $P0$ tab aktif tercapai",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteEnabledTitle": {
+    "message": "Selalu aktif dinyalakan"
+  },
+  "noteDisabledTitle": {
+    "message": "Selalu aktif dimatikan"
+  },
+  "noteEnabledFor": {
+    "message": "Dinyalakan untuk: $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteDisabledFor": {
+    "message": "Dimatikan untuk: $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteAllOffTitle": {
+    "message": "Semua tab dimatikan"
+  },
+  "noteAllOff": {
+    "message": "Dimatikan untuk $P0$ tab",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoneTitle": {
+    "message": "Tidak ada tab aktif"
+  },
+  "noteNone": {
+    "message": "Saat ini tidak ada tab yang selalu aktif"
+  },
+  "noteInstalledTitle": {
+    "message": "TabRevive terpasang"
+  },
+  "noteInstalled": {
+    "message": "Klik ikon ekstensi untuk menjaga tab tetap aktif."
+  }
+}

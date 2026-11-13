@@ -1,0 +1,205 @@
+{
+  "extName": {
+    "message": "TabRevive: 탭 항상 활성 상태 유지"
+  },
+  "extDescription": {
+    "message": "선택한 탭을 백그라운드에서도 계속 실행합니다. 탭을 바꿔도 사이트가 알아채지 못하고, 타이머가 느려지지 않으며, 탭이 삭제되지 않습니다."
+  },
+  "cmdToggle": {
+    "message": "현재 탭의 항상 활성 켜기/끄기"
+  },
+  "cmdDisableAll": {
+    "message": "모든 탭의 항상 활성 끄기"
+  },
+  "popupTagline": {
+    "message": "탭을 바꿔도 활성 상태 유지"
+  },
+  "statusNone": {
+    "message": "활성 탭 없음"
+  },
+  "statusOne": {
+    "message": "탭 1개 활성"
+  },
+  "statusMany": {
+    "message": "탭 $P0$개 활성",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "statProtected": {
+    "message": "보호됨"
+  },
+  "statOpenTabs": {
+    "message": "열린 탭"
+  },
+  "statSites": {
+    "message": "사이트"
+  },
+  "sectionCurrentTab": {
+    "message": "현재 탭"
+  },
+  "labelState": {
+    "message": "상태"
+  },
+  "stateActive": {
+    "message": "항상 활성"
+  },
+  "stateStandby": {
+    "message": "대기"
+  },
+  "untitled": {
+    "message": "제목 없음"
+  },
+  "loading": {
+    "message": "로드 중…"
+  },
+  "btnEnable": {
+    "message": "항상 활성으로 설정"
+  },
+  "btnDisable": {
+    "message": "항상 활성 해제"
+  },
+  "siteOn": {
+    "message": "$P0$ 항상 활성 유지",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "siteOff": {
+    "message": "$P0$ 항상 활성 해제",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "sectionQuick": {
+    "message": "빠른 작업"
+  },
+  "actRefresh": {
+    "message": "활성 탭 새로고침"
+  },
+  "actMute": {
+    "message": "모두 음소거"
+  },
+  "actExport": {
+    "message": "목록 내보내기"
+  },
+  "actSettings": {
+    "message": "설정"
+  },
+  "sectionActive": {
+    "message": "활성 탭"
+  },
+  "emptyTitle": {
+    "message": "아직 항상 활성인 탭이 없습니다"
+  },
+  "emptyHint": {
+    "message": "“항상 활성으로 설정”을 눌러 시작하세요"
+  },
+  "tagSiteRule": {
+    "message": "사이트 규칙"
+  },
+  "removeTab": {
+    "message": "항상 활성에서 제거"
+  },
+  "justNow": {
+    "message": "방금"
+  },
+  "toastRefreshed": {
+    "message": "활성 탭을 새로고침했습니다"
+  },
+  "toastNothingRefresh": {
+    "message": "새로고침할 활성 탭이 없습니다"
+  },
+  "toastMuted": {
+    "message": "탭 소리를 전환했습니다"
+  },
+  "toastNothingMute": {
+    "message": "음소거할 활성 탭이 없습니다"
+  },
+  "toastExported": {
+    "message": "내보내기를 다운로드했습니다"
+  },
+  "errUpdateTab": {
+    "message": "탭을 업데이트하지 못했습니다"
+  },
+  "errSiteRule": {
+    "message": "사이트 규칙을 업데이트하지 못했습니다"
+  },
+  "errLoad": {
+    "message": "데이터를 불러오지 못했습니다"
+  },
+  "rateAsk": {
+    "message": "TabRevive가 마음에 드시나요? 평가를 남겨 주시면 정말 감사하겠습니다 :)"
+  },
+  "rateYes": {
+    "message": "평가하기"
+  },
+  "rateNo": {
+    "message": "괜찮습니다"
+  },
+  "errTabNotFound": {
+    "message": "탭을 찾을 수 없습니다"
+  },
+  "errCannotProtect": {
+    "message": "이 페이지는 활성 상태로 유지할 수 없습니다"
+  },
+  "errLimit": {
+    "message": "활성 탭 한도($P0$개)에 도달했습니다",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteEnabledTitle": {
+    "message": "항상 활성 켜짐"
+  },
+  "noteDisabledTitle": {
+    "message": "항상 활성 꺼짐"
+  },
+  "noteEnabledFor": {
+    "message": "켜짐: $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteDisabledFor": {
+    "message": "꺼짐: $P0$",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteAllOffTitle": {
+    "message": "모든 탭 꺼짐"
+  },
+  "noteAllOff": {
+    "message": "탭 $P0$개의 항상 활성을 껐습니다",
+    "placeholders": {
+      "p0": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoneTitle": {
+    "message": "활성 탭 없음"
+  },
+  "noteNone": {
+    "message": "현재 항상 활성인 탭이 없습니다"
+  },
+  "noteInstalledTitle": {
+    "message": "TabRevive 설치됨"
+  },
+  "noteInstalled": {
+    "message": "확장 프로그램 아이콘을 클릭해 탭을 활성 상태로 유지하세요."
+  }
+}
