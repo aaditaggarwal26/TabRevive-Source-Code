@@ -1,0 +1,257 @@
+:root,
+[data-theme="oled"] {
+    --bg0: #000000; --surface0: #000000; --card0: #0c0c0c;
+    --control: #1c1c1c; --border: #1a1a1a; --border-hover: #2e2e2e;
+    --text: #ffffff; --text-2: #d0d0d0; --muted: #7c7c7c;
+    --accent: #3ddc84; --accent-hover: #2fc373; --on-accent: #001a0a;
+    --danger: #e5484d; --danger-hover: #cc3a3f;
+    --scrim-rgb: 0 0 0;
+}
+
+[data-theme="dark"] {
+    --bg0: #0e0f11; --surface0: #15171a; --card0: #1b1e22;
+    --control: #262a30; --border: #262a30; --border-hover: #363b43;
+    --text: #f2f4f7; --text-2: #c9ced6; --muted: #8a919c;
+    --accent: #3ddc84; --accent-hover: #2fc373; --on-accent: #06210f;
+}
+
+[data-theme="midnight"] {
+    --bg0: #0b0e1a; --surface0: #10142a; --card0: #161b36;
+    --control: #262d52; --border: #222944; --border-hover: #343d66;
+    --text: #e9ecff; --text-2: #c2c8ee; --muted: #8088b4;
+    --accent: #8b9dff; --accent-hover: #7487f5; --on-accent: #0b0e1a;
+}
+
+[data-theme="arctic"] {
+    --bg0: #2e3440; --surface0: #343a47; --card0: #3b4252;
+    --control: #4c566a; --border: #444d5f; --border-hover: #5a6579;
+    --text: #eceff4; --text-2: #d8dee9; --muted: #a3acbd;
+    --accent: #88c0d0; --accent-hover: #74b0c2; --on-accent: #1f2530;
+    --danger: #d9606b; --danger-hover: #c64f5a;
+}
+
+[data-theme="dusk"] {
+    --bg0: #191724; --surface0: #1f1d2e; --card0: #26233a;
+    --control: #393552; --border: #2f2b45; --border-hover: #46415f;
+    --text: #e0def4; --text-2: #c9c6e3; --muted: #908caa;
+    --accent: #ebbcba; --accent-hover: #e3a5a2; --on-accent: #191724;
+    --danger: #eb6f92; --danger-hover: #dc5a7f;
+}
+
+[data-theme="ember"] {
+    --bg0: #161210; --surface0: #1d1815; --card0: #241e1a;
+    --control: #362d27; --border: #2e2621; --border-hover: #473b33;
+    --text: #f5ede6; --text-2: #d9cbbf; --muted: #9c8b7e;
+    --accent: #f5a524; --accent-hover: #e6941a; --on-accent: #1f1405;
+}
+
+[data-theme="ocean"] {
+    --bg0: #071a1f; --surface0: #0b2229; --card0: #0f2b33;
+    --control: #173c46; --border: #153640; --border-hover: #22505c;
+    --text: #e3f6f8; --text-2: #b9dde2; --muted: #74a2aa;
+    --accent: #2dd4bf; --accent-hover: #20bfab; --on-accent: #032420;
+}
+
+[data-theme="paper"] {
+    --bg0: #f4eee2; --surface0: #faf6ee; --card0: #fffdf8;
+    --control: #ddd2bd; --border: #e2d8c6; --border-hover: #c9bca4;
+    --text: #2a241c; --text-2: #4d4436; --muted: #85796a;
+    --accent: #b4532a; --accent-hover: #9c4521; --on-accent: #ffffff;
+    --danger: #c0392b; --danger-hover: #a53024;
+    --scrim-rgb: 250 246 238;
+}
+
+[data-theme="light"] {
+    --bg0: #f3f5f8; --surface0: #ffffff; --card0: #ffffff;
+    --control: #d4dae3; --border: #dde2e9; --border-hover: #c3cad5;
+    --text: #111418; --text-2: #39414c; --muted: #6b7380;
+    --accent: #0f9d58; --accent-hover: #0b8a4c; --on-accent: #ffffff;
+    --danger: #d93036; --danger-hover: #bf272d;
+    --scrim-rgb: 255 255 255;
+}
+
+:root {
+    --bg: var(--bg0);
+    --surface: var(--surface0);
+    --card: var(--card0);
+}
+
+html[data-bg] {
+    --bg: transparent;
+    --surface: color-mix(in srgb, var(--surface0) 55%, transparent);
+    --card: color-mix(in srgb, var(--card0) 50%, transparent);
+}
+
+html[data-bg] body {
+    background: transparent;
+}
+
+html[data-bg] body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image: linear-gradient(rgb(var(--scrim-rgb) / var(--dim, 0.4)), rgb(var(--scrim-rgb) / var(--dim, 0.4))), var(--bg-image);
+    background-size: cover;
+    background-position: center;
+    will-change: transform;
+}
+
+html[data-bg] body > :is(.header, .status-bar, .stats, .footer),
+html[data-bg] .tab-card {
+    backdrop-filter: blur(16px) saturate(1.3);
+}
+
+html[data-bg] .container {
+    --surface: color-mix(in srgb, var(--surface0) 72%, transparent);
+    --card: color-mix(in srgb, var(--card0) 60%, transparent);
+}
+
+.notification {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: var(--accent);
+    color: var(--on-accent);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 1000;
+}
+
+.notification.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.notification[data-type="warning"] {
+    background: #f5a524;
+    color: #1f1405;
+}
+
+.notification[data-type="error"] {
+    background: var(--danger);
+    color: #ffffff;
+}
+
+.swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.swatch {
+    position: relative;
+    height: 64px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg0);
+    cursor: pointer;
+    overflow: hidden;
+    padding: 0;
+    text-align: left;
+    font: inherit;
+    transition: border-color 0.15s, transform 0.15s;
+}
+
+.swatch:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-1px);
+}
+
+.swatch:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.swatch[aria-checked="true"] {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent);
+}
+
+.swatch .swatch-card {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 10px;
+    height: 18px;
+    border-radius: 5px;
+    background: var(--card0);
+    border: 1px solid var(--border);
+}
+
+.swatch .swatch-dot {
+    position: absolute;
+    right: 16px;
+    top: 15px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+.swatch .swatch-name {
+    position: absolute;
+    left: 10px;
+    bottom: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.swatch.bg-swatch {
+    background-size: cover;
+    background-position: center;
+}
+
+.swatch.bg-swatch .swatch-name {
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: rgb(0 0 0 / 0.45);
+    color: #ffffff;
+}
+
+.swatch.bg-none {
+    background: repeating-linear-gradient(45deg, var(--card), var(--card) 6px, var(--surface) 6px, var(--surface) 12px);
+}
+
+.swatch.bg-none .swatch-name {
+    background: none;
+    color: var(--text-2);
+}
+
+.bg-tools {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 14px;
+}
+
+.bg-tools label {
+    font-size: 13px;
+    color: var(--text-2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bg-tools input[type="color"] {
+    width: 36px;
+    height: 32px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--control);
+    padding: 2px;
+    cursor: pointer;
+}
+
+.bg-tools input[type="range"] {
+    accent-color: var(--accent);
+    width: 140px;
+}
