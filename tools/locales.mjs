@@ -731,7 +731,7 @@ for (const [lang, table] of Object.entries(L)) {
         messages[key] = entry;
     }
     for (const key of Object.keys(table)) if (!keys.includes(key)) { console.error(`${lang}: unknown key ${key}`); problems++; }
-    const dir = path.join(root, '_locales', lang);
+    const dir = path.join(root, 'extension', '_locales', lang);
     fs.mkdirSync(dir, { recursive: true });
     fs.writeFileSync(path.join(dir, 'messages.json'), JSON.stringify(messages, null, 2) + '\n');
 }
