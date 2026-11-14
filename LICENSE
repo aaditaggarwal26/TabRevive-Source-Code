@@ -1,0 +1,38 @@
+TabRevive — Proprietary License
+
+Copyright (c) 2025-2026 Aadit Aggarwal. All rights reserved.
+
+This software and its source code, including all scripts, stylesheets, markup, images, icons,
+text, and documentation in this repository and in any published build of the TabRevive browser
+extension (together, the "Software"), are the exclusive property of the copyright holder.
+
+1. Permitted use
+   You may install and use the official TabRevive extension, as distributed by the copyright
+   holder through the Chrome Web Store or another official channel, for your own personal or
+   internal business use. You may read the source code for the purpose of reviewing its
+   security and privacy.
+
+2. Restrictions
+   Without prior written permission from the copyright holder, you may not:
+   a. copy, reproduce, or mirror the Software or any substantial part of it;
+   b. modify, adapt, translate, or create derivative works based on the Software;
+   c. publish, distribute, sublicense, sell, rent, or otherwise make the Software, or any
+      extension, application, or service built from it, available to others, including
+      through the Chrome Web Store, any other extension store, or any website;
+   d. remove, alter, or obscure any copyright notice, trademark, or this license;
+   e. use the name "TabRevive", its logo, or its icons to identify any other product.
+
+3. No implied license
+   No rights are granted except those expressly stated above. Viewing the source code, or the
+   source code being publicly readable, does not grant any license to use it in any other way.
+
+4. Termination
+   Any use in breach of this license automatically terminates your rights under it.
+
+5. Disclaimer
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND
+   NON-INFRINGEMENT. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES, OR
+   OTHER LIABILITY ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR ITS USE.
+
+For permission requests, contact the copyright holder through the project's homepage.
