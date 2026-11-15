@@ -1,5 +1,7 @@
 # TabRevive
 
+**4,800+ downloads** on the [Chrome Web Store](https://chromewebstore.google.com/detail/tabrevive-keep-tabs-activ/banecahclhdppaebnlhnhnhfeoinnfjn).
+
 TabRevive is a Chrome extension (Manifest V3) that keeps chosen tabs behaving as if they were in the foreground: the page cannot tell you switched away, its timers and animations keep running at full speed, and Chrome will not discard it.
 
 ## How it works
