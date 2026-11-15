@@ -1,3 +1,6 @@
 dist/
 .DS_Store
 .playwright-mcp/
+store/
+tests/
+tools/store-images.mjs
